@@ -3,24 +3,44 @@
 
 
 \subsection{Problemstellung und Zielsetzung}
-evtl noch kurze Übersicht über das iCare-Projekt
+Bei an Demenz erkrankten Menschen besteht das Risiko, dass diese ohne das Wissen von Angehörigen oder Pflegern beschließen, ihr Haus oder das Pflegeheim zu verlassen. Vom Zeitpunkt des Verschwindens bis jemand dieses bemerkt können kritische Stunden vergehen, in denen die Betroffenen in einen Bus einsteigen, stürzen oder unterkühlen können. Auch das Verschwinden im Pflegeheim selbst kann schon zur Gefahr werden, wenn sich die Betroffenen beispielsweise stundenlang im Keller aufhalten. Um dieser Gefahr vorzubeugen wurde das iCare-Projekt ins Leben gerufen. Ziel des Projektes ist es, den Standort der betroffenen Menschen ohne deren Einschränkung diskret bestimmen zu können. Dabei sollen die Personen keinesfalls dauerhaft getrackt werden, da dies rechtlich nicht tragbar wäre. Stattdessen soll bei einem gemeldeten Vermissten eine Suche ausgelöst werden, worauf das DeSearch-System den Standort der Person bestimmt. Dies soll durch den Einsatz von kleinen Bluetooth-Marken, die unbemerkt in die Kleidung eingenäht werden können, realisiert werden. Die Marken werden von sogenannten DeSearch-Boxen erkannt, wenn sie sich in Sendereichweite der Boxen befinden, und können so einem Standort zugeordnet werden. Eine Zentrale, die vom Pflegepersonal bedient werden kann, dient dem Starten von Personensuchen und dem Anzeigen der Ergebnisse über eine Web-Oberfläche.
+\\Zielsetzung dieser Projektarbeit ist es, einen lauffähigen Prototypen der DeSearch-Box zu bauen und mit den Bluetooth-Marken zu verknüpfen. Das erste Testsystem soll im Umfeld der DHBW Friedrichshafen aufgesetzt werden, und als “Dozentenfinder” getestet werden. Ziel dabei ist es, einen Dozenten mit Bluetooth-Marken und das DHBW-Gebäude sowie das Home-Office des Dozenten mit den DeSearch-Boxen auszustatten. Es soll möglich sein, den Dozenten anhand der aufgestellten DeSearch-Boxen lokalisieren zu können und eine Aufzeichnung seiner Aufenthaltsorte zu generieren. Die Zentrale soll im zuständigen Sekretariat aufgestellt werden.
+Im weiteren Verlauf soll der Projektumfang so ausgeweitet werden, dass das System in einem Seniorenzentrum der Evangelischen Altenheimat Bondorf im größeren Umfang getestet werden kann.
+
 
 
 
 \subsection{Methodisches Vorgehen zur Problemlösung}
-Stand der Forschung
-Technologie-Auswahl
-Tests
+Die einzelnen Schritte der Studienarbeit werden sein:
+\begin{itemize}
+\item Recherche zur Tauglichkeit verschiedener Hardware-Varianten
+\item Hardware-Entscheidung
+\item Hardware-Beschaffung (kleine Stückzahl zum Anfertigen eines Prototypen)
+\item Bau eines Prototypen
+\item Aufbau der Systemarchitektur und Vernetzung(im Hüttenworkshop in Zusammenarbeit mit dem ganzen Kurs)
+\item Aufbau des Systems in der DHBW Friedrichshafen
+\item Testläufe mit Dozentenfinder
+\item Aufbau und Einrichten des Testsystems im Seniorenzentrum Altenheimat Bondorf
+\end{itemize}
 
 
 
 \subsection{Erwartungen an die Lösungsergebnisse}
-Anforderungen an das Projekt - funktionale und nichtfunktionale Anforderungen
-Dokumente aus Balderschwang, Spezifikationen
+Folgende Anforderungen sollten durch den ersten Prototypen erfüllt sein:
+\begin{itemize}
+	\item  Absicherung der Daten und der DeSearch-Boxen, beispielsweise durch Zertifikate, zum Schutz gegen Manipulation
+	\item Authentifizierung der Administratoren auf den DeSearch-Boxen und der Zentrale 
+	\item Periodisches Anfragen der DeSearch-Boxen bei der Zentrale, welche Marken momentan gesucht werden
+	\item Meldung der DeSearch-Box bei der Zentrale, wenn eine Marken gesehen wurde mit: Marken-ID, Box-ID, Signalstärke, Zeitstempel
+	\item Starten einer Suche über die Benutzeroberfläche der Zentrale
+	\item Anzeigen der Suchergebnisse auf der Benutzeroberfläche
+	\item Eine Person liegt in der Datenbank vor mit: Vorname, Nachname, ID, Anmerkungen zur Person (beispielweise Medikamente, Verhalten, Berduerfnisse,...), gesucht-Flag
+	\item Zuordnung einer Personen-ID zu den MAC-Adressen der Marken, sodass einer Person mehrere Marken zugeordnet werden können
+	\item Hinzufügen, Bearbeiten und Entfernen von Mitarbeitern, Personen und Marken in der Datenbank, Bedienung über die Benutzeroberfläche der Zentrale
+\end{itemize}
 
 \subsection{Überprüfung der Ergebnisse}
-Erfüllungskriterien
-Installation in der Testumgebung...
+Die Überprüfung der Ergebnisse soll zum Einen anhand der gestellten Anforderungen erfolgen. Die ausführlichen Geschäfts- und Systemfälle werden einzeln durchgespielt und auf Erfüllung überprüft. Eine Auflistung der Systemfälle ist in Anhang \ref{anh:fälle} zu sehen. Zusätzlich zu diesen Spezifikationen wird die Installation in der Testumgebung und der ausführliche Testbetrieb zur Überprüfung der Ergebnisse genutzt.
 
 
 
