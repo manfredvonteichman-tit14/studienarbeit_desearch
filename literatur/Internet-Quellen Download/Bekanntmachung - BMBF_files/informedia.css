@@ -1,0 +1,50 @@
+@charset "UTF-8";
+.article-section h2 {text-transform: none;}
+
+.form-warning {
+	color: #D00000;
+}
+
+.imagemap{
+  padding:30px 0px;
+  position: relative;
+}
+#africa-content{
+	position: absolute;
+	top:-20px;
+	left:0;
+}
+#africa-content .box-info p {
+  font-size:1.5rem;
+}
+#africa-content .box-info h2 {
+  margin-bottom: 0;
+}
+#africa-content .box-info {
+  background-size: 30px auto;
+  padding:15px;
+  padding-left: 70px;
+  background-position: 20px 20px;
+}
+
+.content .search-info {
+	padding: 0 0 38px; 
+}
+
+.article-image__copyright {
+  margin-top: initial;
+}
+/*
+.article-image__copyright:before {
+    content: "© ";
+}
+*/
+
+.article-section { margin-bottom:3em; }
+.article-section.newsletter-image { margin-bottom:0; }
+
+
+/* Auf der Startseite kein Datum in der Videobox anzeigen! */
+.pagetype-home .box.box-mediathek.icon-mediathek .box-content .teaser-content .teaser-meta {
+  display: none;
+}

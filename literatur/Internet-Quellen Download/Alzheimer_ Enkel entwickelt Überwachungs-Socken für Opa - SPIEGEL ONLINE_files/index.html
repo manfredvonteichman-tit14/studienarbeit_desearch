@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://s1.2mdn.net/4507429/1462381260782/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript">
+    
+      (function() {
+        var relegateNavigation = '';
+        var handleClickTagMessage = function(e) {
+          try {
+            var eventData = JSON.parse(e.data);
+          } catch (err) {
+            return;
+          }
+          if (eventData.isInitClickTag) {
+            if (eventData.clickTags) {
+              for (var i = 0; i < eventData.clickTags.length; i++) {
+                var clkTag = eventData.clickTags[i];
+                window[clkTag.name] = clkTag.url;
+              }
+            } else if (eventData.clickTag) {
+              window.clickTag = eventData.clickTag;
+            }
+            relegateNavigation = eventData.relegateNavigation;
+          }
+        };
+
+        if (open.call) {
+          window.open = function(open) {
+            return function(url, name, features) {
+              if (relegateNavigation === 'parent') {
+                var message = {'clickTag': url, 'isPostClickTag': true};
+                parent.postMessage(JSON.stringify(message), '*');
+              } else {
+                var args = [url, name];
+                if (features) {
+                  args.push(features);
+                }
+                open.apply(window, args);
+              }
+            };
+          }(window.open);
+        }
+
+        if (window.addEventListener) {
+          window.addEventListener(
+              'message', handleClickTagMessage, false);
+        } else {
+          window.attachEvent('onmessage', handleClickTagMessage);
+        }
+      })();
+    
+  </script>
+		
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="./style.css">
+		<meta name="ad.size" content="width=728,height=90">
+		<script type="text/javascript">
+			var clickTag = "https://www.google.com";
+			sw = 860;
+			sh = 250;
+			var sizeType = sw + "x" + sh;
+			var sw = parseInt(sw);
+			var sh = parseInt(sh);
+		</script>
+		<title>Fitbit</title>
+		<style>
+		html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+		body {
+			color: white;
+			font-family: arial, sans-serif;
+		}
+		a {
+			color: white;
+		}
+		.banner {
+			position: relative;
+			width: 858px;
+			height: 248px;
+			overflow: hidden;
+			border: 1px #000 solid;	
+			margin: 0;
+			top: 0px;
+			left: 0px;
+			
+
+		}
+		#banner-container {
+			position: absolute;
+			width: 860px;
+			height: 250px;
+			opacity: 0;
+
+		}
+		#bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 860px;
+			height: 250px;
+			background: #FFF;
+			opacity: 0;
+		}
+		.hide {
+			display: none;
+		}     
+		
+		
+		</style>
+	</head>
+	<body>
+		<div class="banner">
+			<a href="javascript:window.open(window.clickTag)">
+				<div id="banner-container" style="visibility: inherit; opacity: 1;">
+					<div id="bg" style="visibility: inherit; opacity: 1;"></div>	
+					<div class="device" id="device1" style="visibility: inherit; opacity: 1; background-color: rgb(243, 212, 209);"></div>
+					<div class="device" id="device2" style="visibility: hidden; opacity: 0; background-color: rgb(203, 189, 200);"></div>
+					<div class="device" id="device3" style="visibility: hidden; opacity: 0; background-color: rgb(180, 182, 181);"></div>
+					<div class="device" id="device4" style="visibility: hidden; opacity: 0; background-color: rgb(194, 209, 224);"></div>
+					<div class="device" id="device5" style="visibility: inherit; opacity: 1; background-color: rgb(116, 116, 116);"></div>
+					<div class="device" id="device6" style="visibility: inherit; opacity: 1; background-color: rgb(158, 213, 206);"></div>
+					<div class="device" id="device7" style="visibility: inherit; opacity: 1; background-color: rgb(203, 189, 200);"></div>
+					<div id="headline1" class="banner-hold" style="visibility: hidden; opacity: 0; transform: translate3d(-80px, 0px, 0px);"></div>
+					<div id="headline2" class="banner-hold" style="visibility: hidden; opacity: 0; transform: translate3d(-80px, 0px, 0px);"></div>
+					<div id="headline3" class="banner-hold" style="visibility: hidden; opacity: 0; transform: translate3d(-80px, 0px, 0px);"></div>
+					<div id="headline4" class="banner-hold" style="visibility: hidden; opacity: 0; transform: translate3d(-80px, 0px, 0px);"></div>
+					<div id="headline5" class="banner-hold" style="visibility: inherit; opacity: 1; transform: translate3d(0px, 0px, 0px);"></div>
+					<div id="bottom-bar"></div>
+					<div id="price" class="banner-hold" style="display: block; visibility: inherit; opacity: 1;"></div>
+					<div id="newflag" style="transform-origin: 0% 100% 0px; visibility: inherit; opacity: 1; transform: translate3d(0px, 0px, 0px);"></div>
+					<div id="logo" class="banner-hold" style="visibility: inherit; opacity: 1;"></div>
+					
+					<div id="cta-backing-hold-860x250" class="banner-hold hide" style="transform: translate(25px, 118px); display: block; visibility: inherit; opacity: 1;">
+						<svg version="1.1" x="0px" y="0px" width="828px" height="90px" viewBox="0 0 828 90" style="enable-background:new 0 0 828 90;" xml:space="preserve">
+							<path id="cta-backing-860x250" style="fill: rgb(238, 61, 111); display: block; visibility: inherit; opacity: 1;" d="M705.769,48.909h94.637c7.627,0,13.808,6.296,13.808,14.059v0.003c0,7.764-6.183,14.057-13.808,14.057h-94.637c-7.624,0-13.806-6.293-13.806-14.057v-0.003C691.963,55.205,698.144,48.909,705.769,48.909z"></path>
+						</svg>
+					</div>  
+					
+					<div id="cta-text" class="banner-hold" style="transform: translate(5px, 0px); display: block; visibility: inherit; opacity: 1;"></div></div>
+				</a></div><a href="javascript:window.open(window.clickTag)">
+			</a>
+		
+		<script src="./CSSPlugin.min.js"></script>
+		<script src="./EasePack.min.js"></script>
+		<script src="./TweenLite.min.js"></script>
+		<script src="./main.js"></script>      
+		
+	
+</body></html>

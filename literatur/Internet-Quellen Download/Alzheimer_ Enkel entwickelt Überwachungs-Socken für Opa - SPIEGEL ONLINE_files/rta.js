@@ -1,0 +1,1 @@
+criteoContent = 'crtqc300=1;crtqclo300=1;crtqmm160=1;crtqmm300=1;crtqcti3025=1;crtif30050=1;crtif52020=1;crtif30055=1;crtif52025=1;crtif52030=1;crtif52040=1;crtqmm680=1;crtqcbe300250=1;crtqcbemo300250=1;'; (function(){document.cookie = 'cookieName=' + escape(criteoContent) + '; path=/; expires=Wed, 22 Jun 2016 12:41:30 GMT; domain=spiegel.de';})();

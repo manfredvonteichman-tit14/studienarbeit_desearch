@@ -1,0 +1,47 @@
+
+<!-- saved from url=(0041)http://static.adfarm1.adition.com/ci.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    
+</head>
+<body>
+<script type="text/javascript">
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i < ca.length; i++)
+        {
+            var c = ca[i];
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
+    function getScriptDomain(host)
+    {
+        var protocol = window.location.protocol;
+        protocol = protocol == 'https:' ? 'https://' :'http://';
+
+        var staticHost = {'static.adfarm1.adition.com':'ad8.adfarm1.adition.com','imagesrv.adition':'local.adfarm1.adition:9015'};
+        var scriptLocation = '/i';
+
+        if(staticHost[host]){
+            host = staticHost[host]+scriptLocation;
+        }else{
+            var splittedHost = host.split('.');
+            if(splittedHost[i] == 'is'){
+                splittedHost[i] = 'as';
+            }
+            host = splittedHost.join('.')+scriptLocation;
+        }
+        return protocol+host;
+    }
+    var i = getCookie('UserID1');
+    if(!i){
+        var url = getScriptDomain(window.location.hostname);
+        document.write('<scr'+'ipt type="text/javascript" src="'+url+'"></scri'+'pt>');
+    }
+</script><script type="text/javascript" src="./i"></script>
+
+</body></html>

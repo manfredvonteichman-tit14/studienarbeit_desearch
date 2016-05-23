@@ -3,15 +3,20 @@
 \subsection{Anwendungsszenario}
 
 \subsection{Related Work: IoT-Anwendungen in Medizin und Pflege}\label{ssec:rel.work}
-http://www.digikey.at/de/articles/techzone/2014/jul/the-role-of-sensors-in-iot-medical-and-healthcare-applications\\
-Pflegeinnovationen 2020\\
-http://www.spiegel.de/gesundheit/diagnose/alzheimer-enkel-entwickelt-ueberwachungs-socken-fuer-opa-a-1028494.html\\
-http://www.eurotronik.si/de/products/\\
+Das Welt des Internet of Things (IoT)) ist bereits auf die Pflege als lukratives Anwendungsfeld gestoßen.
+\nomenclature{IoT}{\textbf{I}nternet \textbf{o}f \textbf{T}hings}
+ Dementsprechend sind bereits einige Lösungen auf dem Markt, die durch die Nutzung von Technologien wie Bluetooth, GPS, Druck- und Beschleunigungssensoren versuchen, die Arbeit von Pflegenden zu erleichtern.
+Das deutsche Bundesministerium für Bildung und Forschung (BMBF) hat eigens für die Weiterentwicklung solcher Themen eine Initiative mit dem Namen \enquote{Pflegeinnovationen 2020} ins Leben gerufen. Unter Anderem werden durch diese Initiative Forschungsprojekte gefördert, die Innovationen der Mensch-Technik-Interaktion entwickeln und dadurch Pflegende unterstützen \citep[Vgl.][]{bmbf}. Fertige Produkte und Systeme sind bereits einige auf dem Markt.
+Beispielsweise hat ein 13-Jähriger ein Überwachungssystem für seinen Großvater entwickelt, das in seine Socken integriert ist. Damit kann über Drucksensoren registriert werden, wann er nachts aufsteht \citep[Vgl.][]{spiegel-alzheimer}. Nach dem ähnlichen Prinzip funktionieren auch druckempflindliche Fußmatten, die schon weit verbreitet eingesetzt werden, beispielsweise als Bettvorleger oder am Zimmerausgang.\\
+Auch Wearables, also am Körper tragbare elektronische Helfer, sind bereits im Pflege-Bereich angekommen. Die Firma Eurotronik bietet beispielsweise ein System an, bei dem Demente mit Weglauftendenz über ein Funk-Armband geortet werden können. Zudem wird ein Alarm ausgelöst, wenn sie ihre erlaubten Aufenthaltsbereiche verlassen \citep[Vgl.][]{eurotronik}. Etwas diskreter ist der Einsatz von GPS-Armbanduhren. Diese werden von den Patienten nicht unbedingt als Ortungsarmband erkannt, was eine gesteigerte Benutzerakzeptanz nach sich zieht. Ein Beispiel hierfür sind die Uhren der Firma DS Vega \citep[Vgl.][]{ds-vega}.
+Einen ähnlichen Ansatz der Ortung hat die Firma Aetrex gewählt, die einen GPS-Tracker unauffällig in spezielle Schuhe einbaut. Die Schuhe senden alle 30 Minuten die Position des Trägers an einen Account, den die Angehörigen oder die Pfleger einsehen können. Die Akkulaufzeit der GPS-Sender beträgt allerdings maximal 48 Stunden \citep[Vgl.][]{aetrex}.
 http://winfwiki.wi-fom.de/index.php/Einsatz\_von\_Wearables\_für\_Demenzerkrankte\\
+%TODO http://www.digikey.at/de/articles/techzone/2014/jul/the-role-of-sensors-in-iot-medical-and-healthcare-applications\\
 
 
 
 \subsection{Projektübersicht iCare}
+Das Projekt iCare mit dem DeSearch-System beschäftigt sich mit der selben Problemstellung wie die bereits auf dem Markt angekommenen Systeme: demente Personen mit Weglauftendenz. Allerdings soll das Ortungssystem von iCare dabei nicht vom Patienten erkannt werden. Ein Armband oder eine GPS-Uhr trägt immer das Risiko, von der dementen Person als elektronische Fußfessel angesehen zu werden. Sobald die Person die Uhr oder das Armband abnimmt, ist das System außer Kraft gesetzt. Einige Hersteller lösen dieses Problem mit Verschlüssen, die abgeschlossen werden können oder nur mit 2 Händen geöffnet werden können. Doch auch solche Systeme kann ein Patient zerstören, wenn er nicht mit der Ortung einverstanden ist. Beispielsweise steigen die Patienten dann mit dem Armband in die Badewanne oder greifen zu Scheren oder Messern, um die Uhr loszuwerden. Das Problem der Nutzerakzeptanz soll beim DeSearch-System dadurch gelöst werden, dass die Bluetooth-Marken, die zur Ortung dienen, unsichtbar in die Kleidung der Patienten eingenäht werden können. Auch wasserdicht und waschmaschinenfest sollen die Marken sein, sodass sie einfach mit der Kleidung mitgewaschen werden können. Ein weiteres Problem von GPS-Tracking-Systemen ist die Akkulaufzeit der Geräte. Die GPS-Schuhe müssen alle 48 Stunden geladen werden, die GPS-Uhr hat eine maximale Akkulaufzeit von 72 Stunden, abhängig von der Mobilfunknetz-Abdeckung. Mit der Auswahl von Bluetooth als Technologie für die Ortung haben die DeSearch-Marken den Vorteil, dass sie deutlich länger mit einer kleinen Knopfzelle betrieben werden können. Der Bluetooth-Low-Energy Standard ist hierfür maßgeblich (siehe Kapitel \ref{sssec:BLE}).
 
 \subsection{Zielsetzung}
 

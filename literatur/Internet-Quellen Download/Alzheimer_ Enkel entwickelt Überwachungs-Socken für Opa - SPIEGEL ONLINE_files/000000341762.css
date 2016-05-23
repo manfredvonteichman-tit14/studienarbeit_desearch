@@ -1,0 +1,93 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@charset "UTF-8";
+/* Base Styles */
+#servicebox,
+#servicebox ul,
+#servicebox li,
+#servicebox a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  font-weight: normal;
+  text-decoration: none;
+  line-height: 1;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  position: relative;
+  
+}
+#servicebox a {
+  line-height: 1.3;
+  padding: 6px 9px;
+}
+#servicebox {
+  width: 300px;
+}
+#servicebox > ul > li {
+  cursor: pointer;
+  background: #000;
+  border-bottom: 1px solid #e3e3e3;
+}
+#servicebox > ul > li > a {
+  font-size: 13px;
+  display: block;
+  color: #333333;
+  text-shadow: 0 0px 0px #000;
+  background: #ffffff;
+  background: -moz-linear-gradient(#ffffff 0%, #e3e3e3 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e3e3e3));
+  background: -webkit-linear-gradient(#ffffff 0%, #e3e3e3 100%);
+  background: linear-gradient(#ffffff 0%, #e3e3e3 100%);
+}
+#servicebox > ul > li > a:hover {
+  text-decoration: none;
+}
+#servicebox > ul > li.active {
+  border-bottom: none;
+}
+#servicebox > ul > li.active > a {
+  background: #c00b00;
+  background: -moz-linear-gradient(#c00b00 0%, #990000 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c00b00), color-stop(100%, #990000));
+  background: -webkit-linear-gradient(#c00b00 0%, #990000 100%);
+  background: linear-gradient(#c00b00 0%, #990000 100%);
+  color: #ffffff;
+  text-shadow: 0 1px 1px #840101;
+}
+#servicebox > ul > li.has-sub > a:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 5px solid transparent;
+  border-left: 5px solid #333333;
+}
+#servicebox > ul > li.has-sub.active > a:after {
+  right: 14px;
+  top: 12px;
+  border: 5px solid transparent;
+  border-top: 5px solid #ffffff;
+}
+
+/* Sub menu */
+#servicebox ul ul {
+  padding: 0;
+  display: none;
+}
+#servicebox ul ul a {
+    height: 200px;
+    background: #f6f6f6;
+  display: block;
+  color: #797979;
+  font-size: 13px;
+}
+#servicebox ul ul li {
+  border-bottom: 1px solid #c9c9c9;
+}
+#servicebox ul ul li.odd a {
+  background: #f6f6f6;
+}
+#servicebox ul ul li:last-child {
+  border: none;
+}

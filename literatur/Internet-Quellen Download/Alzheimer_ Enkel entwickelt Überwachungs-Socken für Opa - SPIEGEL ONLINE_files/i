@@ -1,0 +1,1 @@
+if (typeof(window.Adition_Temp)=='object'){var url=window.Adition_Temp.begin+'&u=6228144342367535558'+window.Adition_Temp.end;document.write('<script type="text/javascript" src="'+url+'"></script>');}

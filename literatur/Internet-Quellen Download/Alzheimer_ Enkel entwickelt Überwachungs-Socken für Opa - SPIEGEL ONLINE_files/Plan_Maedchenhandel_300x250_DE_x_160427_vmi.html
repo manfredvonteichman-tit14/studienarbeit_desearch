@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- saved from url=(0487)https://imagesrv.adition.com/banners/268/00/54/c8/be/Plan_Maedchenhandel_300x250_DE_x_160427_vmi.html?clicktag=http%3A%2F%2Fad8.adfarm1.adition.com%2Fredi*lid%3D6287863444549009782%2Fsid%3D2845197%2Fkid%3D1622768%2Fbid%3D5558068%2Fc%3D42352%2Fkeyword%3D%2Fsr%3D184%2Fclickurl%3Dhttps%253A%252F%252Fad2.adfarm1.adition.com%252Fredi%253Flid%253D6287863444568997922%2526sid%253D126735%2526kid%253D1620949%2526bid%253D5556414%2526c%253D65271%2526keyword%253D%2526sr%253D184%2526clickurl%253D -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="./AditionH5_ClickTags(1).js"></script>
+
+<title>Plan_Maedchenhandel_300x250_DE_x_160427_vmi</title>
+<!-- write your code here -->
+
+
+<script src="./createjs-2015.11.26.min.js"></script>
+<script src="./Plan_Maedchenhandel_300x250_DE_x_160427_vmi.js"></script>
+<script>
+var canvas, stage, exportRoot;
+function init() {
+	// --- write your JS code here ---
+	
+	canvas = document.getElementById("canvas");
+	images = images||{};
+
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+}
+
+function handleComplete(evt) {
+	exportRoot = new lib.Plan_Maedchenhandel_300x250_DE_x_160427_vmi();
+
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.update();
+
+	createjs.Ticker.setFPS(lib.properties.fps);
+	createjs.Ticker.addEventListener("tick", stage);
+}
+
+</script>
+<script>
+	var getUriParams = function() {
+		var query_string = {}, query = window.location.search.substring(1),
+				parmsArray = query.split('&');
+		if(parmsArray.length <= 0) return query_string;
+		for(var i = 0; i < parmsArray.length; i++) {
+			var pair = parmsArray[i].split('=');
+			var val = decodeURIComponent(pair[1]);
+			if (val != '' && pair[0] != '') query_string[pair[0]] = val;
+		}
+		return query_string;
+	}();
+</script>
+<!-- write your code here -->
+
+</head>
+<body onload="init();" style="background-color:#D4D4D4;margin:0px;" marginwidth="0" marginheight="0">
+	<a href="http://ad8.adfarm1.adition.com/redi*lid=6287863444549009782/sid=2845197/kid=1622768/bid=5558068/c=42352/keyword=/sr=184/clickurl=https%3A%2F%2Fad2.adfarm1.adition.com%2Fredi%3Flid%3D6287863444568997922%26sid%3D126735%26kid%3D1620949%26bid%3D5556414%26c%3D65271%26keyword%3D%26sr%3D184%26clickurl%3D" target="_blank" id="clicktag">
+
+<canvas id="canvas" width="300" height="250" style="background-color:#FFFFFF"></canvas>
+</a>
+<script> document.getElementById('clicktag').setAttribute('href', getUriParams.clicktag); </script>
+
+
+</body></html>

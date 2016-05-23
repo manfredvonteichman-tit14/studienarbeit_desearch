@@ -1,0 +1,98 @@
+.banner-hold {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 860px;
+    height: 250px;
+    overflow: hidden;
+    pointer-events: none;
+    
+
+}
+
+#bottom-bar,
+.device {
+    position: absolute;
+    width: 100%
+}
+
+#headline1 {
+    background: url(../img/copy1.png);
+}
+
+#headline2 {
+    background: url(../img/copy2.png);
+}
+
+#headline3 {
+    background: url(../img/copy3.png);
+}
+
+#headline4 {
+    background: url(../img/copy4.png);
+}
+
+#headline5 {
+    background: url(../img/copy5.png);
+}
+
+#price {
+    background: url(../img/price.png);
+}
+
+#newflag {
+    position: absolute;
+    background: url(../img/newflag.png);
+    width: 35px;
+    height: 21px;
+    top: 30px;
+    left: 428px;
+}
+
+#logo {
+    background: url(../img/logo.png);
+}
+
+#cta-text {
+    background: url(../img/cta.png);
+}
+
+#bottom-bar {
+    background-color: #032b39;
+    height: 250px;
+    width: 170px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.device {
+    height: 100%;
+    background-size: contain;
+}
+
+#device1 {
+    background-image: url(../img/device1.png)
+}
+
+#device2 {
+    background-image: url(../img/device2.png)
+}
+
+#device3 {
+    background-image: url(../img/device3.png)
+}
+
+#device4 {
+    background-image: url(../img/device4.png)
+}
+
+#device5 {
+    background-image: url(../img/device5.png)
+}
+
+#device6 {
+    background-image: url(../img/device6.png)
+}
+#device7 {
+    background-image: url(../img/device2.png)
+}
