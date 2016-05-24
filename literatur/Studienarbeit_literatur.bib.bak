@@ -55,15 +55,6 @@
   timestamp = {2015.05.06}
 }
 
-@Article{demenz,
-  title =   {Die Häufigkeit von Demenzerkrankungen},
-  journal = {Das Wichtigste – Informationsblätter},
-  year =    {2014},
-  month =   {Juni},
-  note =    {24.05.2016},
-  url =     {https://www.deutsche-alzheimer.de/fileadmin/alz/pdf/factsheets/infoblatt1_haeufigkeit_demenzerkrankungen_dalzg.pdf}
-}
-
 @Article{digikey,
   author = {Carolyn Mathas},
   title =  {Die Rolle von Sensoren in IoT-Anwendungen für Medizin und Gesundheitswesen},

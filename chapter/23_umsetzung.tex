@@ -4,10 +4,21 @@
 \subsection{Aktueller Stand der Technologie}
 
 \subsubsection{Bluetooth Low Energy}\label{sssec:BLE}
+
+\subsubsection{Raspberry Pi}
+Für die Zentrale und die DeSearch-Boxen ist zunächst eine Hardware-Entscheidung notwendig. Benötigt werden Mikrocontroller oder Mikrocomputer mit folgenden Eigenschaften:
+\begin{itemize}
+	\item W-LAN Verbindung von der Box zur Zentrale möglich
+	\item Bluetooth-fähige Box zur Markenerkennung
+	\item Zentrale muss als Server fungieren und HTTP-Requests senden und verarbeiten können
+	\item Datenbank-Installation zur Datenhaltung notwendig
+\end{itemize}
+Zudem sollen die Kosten pro Gerät so gering wie möglich gehalten werden. \\
+Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer ist als eine Kreditkarte. Die Anschaffungskosten liegen ohne Zubehör bei etwa 42 €. Für diese geringen Anschaffungskosten erhält man einen vollwertigen, Linux-Basierten Computer mit einer ARM-CPU, W-LAN und Bluetooth-Schnittstelle. Im Gegensatz zu Mikrocontrollern ist der Raspberry Pi leistungsfähiger und läuft stabiler \citep[Vgl.][S.35ff.]{raspi}. Auf einem Arduino beispielweise kann nur C++-Code in einer Endlos-Schleife ausgeführt werden. Der Pi hingegen bietet die Möglichkeit, Bash-Skripte, Python-Code, Datenbank-Anfragen und Webserver gleichzeitig auszuführen. Die Entscheidung für Raspberry Pi ist auch aufgrund der relativ niedrigen Anschaffungskosten für einen kompletten Rechner mit Betriebssystem gefallen. Für die Entwickler ist das Betriebssystem Linux zudem am einfachsten zu bedienen. Für das Projekt werden Pakete mit SD-Karte, W-LAN und Bluetooth-Dongles, Netzteil und Gehäuse für ca. 75 € pro Paket angeschafft.
 \subsubsection{Authentifizierungstechnologie}
 \subsubsection{Software-Rollout mit apt-get}
 \subsubsection{PostgreSQL}
-\subsubsection{Raspberry Pi}
+
 
 \subsection{Umsetzung der Anforderungen}
 
