@@ -3,8 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Aktueller Stand der Technologie}
 
-\subsubsection{Bluetooth Low Energy}\label{sssec:BLE}
-
+\subsubsection{Bluetooth-Technologie}\label{sssec:BLE}
+Bluetooth ist eine drahtlose Datenübertragunsgtechnologie, die basierend auf der Funktechnik Verbindungen zwischen Geräten über eine kurze Distanz ermöglicht. Im engen Nahbereich gilt Bluetooth als der Kommunikationsstandard \citep[Vgl.][S. 133]{mobil-sicher}. Mit dem Bluetooth Low Energy (BLE \nomenclature{BLE}{\textbf{B}luetooth \textbf{L}ow \textbf{E}nergy}) Standard, der 2009 verabscheidet wurde der Stromverbrauch für eine Bluetooth-Verbindung in den Endgeräten drastisch reduziert. Dies gelang unter anderem durch kürzere Verbindungsaufbauzeiten und Schlafphasen (Standby) zwischen den Sendezyklen. Eine vergleichende Untersuchung zum Energieverbrauch von Bluetooth und BLE veröffentlichten \cite{ble-energy}. Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. 
 \subsubsection{Raspberry Pi}
 Für die Zentrale und die DeSearch-Boxen ist zunächst eine Hardware-Entscheidung notwendig. Benötigt werden Mikrocontroller oder Mikrocomputer mit folgenden Eigenschaften:
 \begin{itemize}
@@ -18,14 +18,29 @@ Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer
 \subsubsection{Authentifizierungstechnologie}
 \subsubsection{Software-Rollout mit apt-get}
 \subsubsection{PostgreSQL}
-
+PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das aus dem Projekt POSTGRES der kalifornischen Universität Berkeley heraus entstanden ist. Der objektrelationale Ansatz bedeutet eine Erweiterung der relationalen DBMS um die Konzepte der Objektorientierung. Somit können in objektrelationalen DBMS beispielsweise komplexe Datenstrukturen mit Attributen definiert werden oder Vererbungen vorgenommen werden \citep[Vgl.][S. 135f.]{datenbanken}. In anderen DBMS muss hierfür \enquote{object relational mapping} (ORM) hinzugezogen werden, um Objektstrukturen auf relationale Tabellen abzubilden \citep[Vgl.][S. 426]{balzert} Viele Konzepte, die in POSTGRES neu waren, wurden später in kommerzielle DBMS übernommen. PostgreSQL ist die Open-Source-Variante von POSTGRES und unterstützt einen großen Teil des SQL-Standards. Zudem bietet es Features wie komplexe Queries, Fremdschlüsselbeziehungen, Trigger, updatefähige Views und transaktionale Integrität. Außerdem kann der Benutzer PostgreSQL beliebig durch neue Datentypen, Funktionen, Operatoren oder Aggregationsfunktionen erweitern. Aufgrund der Open-Source-Lizenz kann PostgreSQL von jedem verwendet, verbessert oder verteilt werden
+\nomenclature{DBMS}{\textbf{D}aten\textbf{b}ank \textbf{M}anagement \textbf{S}ystem}
+\citep[Vgl.][preface, S. lxvi]{postgres}. Für das DeSearch-Projekt eignet sich PostgreSQL vor allem wegen seiner Open-Source-Lizenz, was die Kosten für das Projekt gering hält. Zudem ist die Möglichkeit, eigene Datentypen definieren zu können, von Vorteil. Da die Datenbank auf dem Zentral-Raspberry verwendet wird, der meist über SSH in der Konsole bedient wird, ist PostgreSQL einfach zu bedienen, da es über einen Konsolenclienten verfügt.
 
 \subsection{Umsetzung der Anforderungen}
 
 \subsubsection{Vernetzung der DeSearch-Boxen und Infrastruktur}
 \subsubsection{User-Authentifizierung}
 \subsubsection{Erkennen der Marken und Kommunikation zur Zentrale}
-\subsubsection{Datenhaltung mittels PostgreSQL}
+\subsubsection{Datenbankschema}
+In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Zentrale arbeitet. 
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/db-schema}
+	\caption[Datenbankschema der Zentrale]{Datenbankschema der Zentrale, Quelle: eigene Darstellung}
+	\label{img:db-schema}
+\end{figure}
+\\Für den Zugang zur Web-Oberfläche werden \textbf{Benutzer} mit ihren Rollen in der Datenbank angelegt. Das Passwort wird dabei als Hash mit 128 Zeichen in der Datenbank gespeichert. 
+\\Jede \textbf{DeSearch-Box} wird in der Datenbank mit ihrer Position und Boxnummer angelegt. Für die Zukunft wurde bereits das Feld \enquote{Boxtyp} erstellt, da im weiteren Verlauf ortsfeste, mobile und Alarm-Boxen unterschieden werden sollen. Bei mobilen Boxen(z.B. im Auto, in Linienbussen) wird anstatt einer festen Positionsbeschreibung die genaue Geo-Location mit Longitude und Latitude ermittelt. Alarm-Boxen können beispielsweise am Hof-Ausgang oder an der Bushaltestelle installiert werden und standardmäßig immer Alarm auslösen, wenn dort eine Marke gefunden wird.
+\\Die \textbf{Marken} werden in der Datenbank mit einer eindeutigen Mac-Adresse abgelegt, die beim Abgleich mit den Scan-Ergebnissen verwendet wird. Außerdem wird die ID des zugehörigen Patienten vermerkt und ein Hinweis auf das jeweilige Kleidungsstück, in das die Marke eingenäht ist. Zusätzlich wird ein Ablaufdatum in die Datenbank eingetragen, das den ungefähren Zeitpunkt des nächsten Batteriewechsels festhält. Somit kann eine Warnmeldung angezeigt werden, wenn der Batteriewechsel fällig ist. Ein wichtiges Feld ist der boolean \enquote{wird\_gesucht}. Wird auf der Web-Oberfläche eine Suche gestartet, so werden alle zu dieser Person gehörigen Marken auf wird\_gesucht gesetzt. Nur dann werden Treffer zu dieser Person von den Boxen an die Zentrale gemeldet. Finden die Suchenden beispielsweise nur ein Kleidungsstück der vermissten Person, können einzelne Marken gezielt von der Suche ausgeschlossen werden. 
+\\Ein \textbf{Patient} liegt in der Datenbank mit Name, Vorname und weiteren für die Suche wichtigen Informationen vor. Beispielsweise kann unter Merkmale die Beschreibung einer Person vermerkt werden, unter Medikation und Anmerkungen können wichtige Hinweise im Fall eines Fundes oder einer längeren Abwesenheit der Person gespeichert werden. Gerade bei Diabetikern oder Patienten, die regelmäßig Medikamente nehmen müssen, ist diese Information besonders wichtig. Das Flag \enquote{Auf\_Ausgang} kann gesetzt werden, falls ein Angehöriger mit der Person das Pflegeheim verlässt, beispielsweise für einen Spaziergang. Somit wird ein Fehlalarm verhindert.
+\\Die Tabelle \textbf{GefundeneMarken} kann eine Suchaktion protokollieren. Jeder Treffer, den eine Box registriert und an die Zentrale sendet, wird hier dokumentiert. Ein Treffer wird mit der zugehörigen BoxID, der MarkenID, dem Zeitpunkt und der Position in die Datenbank gelegt. Somit können auf der Web-Oberfläche alle Treffer in einer Zeitreihe angezeigt werden. Aus Datenschutzgründen wird diese Tabelle nach jeder abgeschlossenen Suchaktion gelöscht.
+
 \subsubsection{Administrative Benutzeroberfläche}
 \subsubsection{Installation der DeSearch-Boxen in der Testumgebung}
 Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum Testbetrieb installiert. Dabei fungiert ein Pi als Zentrale und die anderen als DeSearch-Boxen, die die Funde an die Zentrale melden. In Tabelle \ref{tab:pis} ist eine Übersicht über alle installierten Raspberry Pi's aufgelistet.
