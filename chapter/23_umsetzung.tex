@@ -28,7 +28,20 @@ Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer
 \subsubsection{Datenhaltung mittels PostgreSQL}
 \subsubsection{Administrative Benutzeroberfläche}
 \subsubsection{Installation der DeSearch-Boxen in der Testumgebung}
-Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum Testbetrieb installiert. Dabei fungiert ein Pi als Zentrale und die anderen als DeSearch-Boxen, die die Funde an die Zentrale melden. In Tabelle \ref{tab:pis} ist eine Übersicht über alle installierten Raspberry Pi's aufgelistet. Ein Zugriff über das Netzwerk ist nur von den Boxen in Richtung Zentrale erlaubt, deswegen muss für den SSH-Zugriff auf die DeSearch-Boxen ein Tunnel über die Zentrale zu den Boxen aufgebaut werden. Hierfür wurde jeder Box ein Port zugewiesen, über den die Zentrale dann als Reverse Proxy die Verbindung herstellt.
+Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum Testbetrieb installiert. Dabei fungiert ein Pi als Zentrale und die anderen als DeSearch-Boxen, die die Funde an die Zentrale melden. In Tabelle \ref{tab:pis} ist eine Übersicht über alle installierten Raspberry Pi's aufgelistet.
+Dazu wurde uns vom Netzwerkadministrator der DHBW die Erlaubnis eingeräumt, die vorhandene Infrastruktur zu verwenden. Daran geknüpft waren allerdings folgende Bedingungen bzw. Einschränkungen:
+\begin{itemize}
+	\item Zugriffe aus dem Internet sind nicht erlaubt.
+	\item Alle Pi's außer der Zentrale (Slaves) verbinden sich über WLAN unter Verwendung unserer Zugangsdaten mit dem Netzwerk.
+	\item Die Zentrale bekommt einen LAN Anschluss und eine feste IP Adresse plus DNS Eintrag zugewiesen.
+	\item Ein Verbindungsaufbau zu den Slaves ist nicht möglich - jegliche Kommunikation muss von ihnen initiiert werden.
+\end{itemize}
+Die letzte Bedingung stelle eine Herausforderung dar, da damit auch kein SSH-Zugriff auf die DeSearch-Boxen möglich ist, der benötigt wird um die DeSearch Anwendung zu aktualisieren, starten oder überwachen.
+Dieses Problem konnte gelöst werden, da mit der Zentrale ein Gerät im Netzwerk ist, das für alle anderen Pi's und auch die zur Entwicklung und Wartung verwendeten Laptops erreichbar ist, kann darüber ein Tunnel aufgebaut werden.
+Zum Aufbauen des Tunnels hat sich die Verwendung der SSH Portforwarding Funktion angeboten, da alle beteiligten Geräte bereits für die Verwendung von SSH eingerichtet waren. Eine schematische Darstellung der Vorgehensweise finden sie in Abbildung \ref{fig:tunnel}.
+Zum Verbindungsaufbau wurde ein technischer Benutzer mit dem Namen "tunnel" auf der Zentrale angelegt, der sich über SSH und Zertifikat Authentifizierung einloggen kann.
+Jeder Slave hat einen RSA Schlüssel erhalten, den er zum Login verwenden kann, und über einen Eintrag ein der Crontabelle wird sichergestellt, dass der Tunnel immer offen gehalten wird.
+Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nun eine Verbindung zu einer Box hergestellt werden, so muss erst eine SSH Verbindung zur Zentrale aufgebaut werden und dort eine SSH Verbindung zum Eingang des Tunnels (localhost plus Tunnel Ausgangport) hergestellt werden.
 \begin{table}[h]
 	\begin{tabular}{ | p{2,5cm} | p{2,5cm} | p{4cm} | p{6cm} |}
 		\hline
@@ -39,5 +52,12 @@ Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum T
 	\end{tabular}
 	\caption{Übersicht der Raspberry Pi's mit Funktion, Installationsort und Erreichbarkeit}
 	\label{tab:pis}
-	
 \end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./images/tunnel.png}
+	\caption[Schematische Darstellung der Verwendung des SSH Tunnels]{\textbf{Schematische Darstellung der Verwendung des SSH Tunnels} - Beispielhaft ist hier eine Verbindung vom Administrator zur DeSearch-Box 6 dargestellt (roter Pfeil).}
+	\label{fig:tunnel}
+\end{figure} 
+
