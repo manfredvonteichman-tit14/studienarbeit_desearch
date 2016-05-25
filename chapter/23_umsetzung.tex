@@ -16,7 +16,27 @@ Für die Zentrale und die DeSearch-Boxen ist zunächst eine Hardware-Entscheidun
 Zudem sollen die Kosten pro Gerät so gering wie möglich gehalten werden. \\
 Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer ist als eine Kreditkarte. Die Anschaffungskosten liegen ohne Zubehör bei etwa 42 €. Für diese geringen Anschaffungskosten erhält man einen vollwertigen, Linux-Basierten Computer mit einer ARM-CPU, W-LAN und Bluetooth-Schnittstelle. Im Gegensatz zu Mikrocontrollern ist der Raspberry Pi leistungsfähiger und läuft stabiler \citep[Vgl.][S.35ff.]{raspi}. Auf einem Arduino beispielweise kann nur C++-Code in einer Endlos-Schleife ausgeführt werden. Der Pi hingegen bietet die Möglichkeit, Bash-Skripte, Python-Code, Datenbank-Anfragen und Webserver gleichzeitig auszuführen. Die Entscheidung für Raspberry Pi ist auch aufgrund der relativ niedrigen Anschaffungskosten für einen kompletten Rechner mit Betriebssystem gefallen. Für die Entwickler ist das Betriebssystem Linux zudem am einfachsten zu bedienen. Für das Projekt werden Pakete mit SD-Karte, W-LAN und Bluetooth-Dongles, Netzteil und Gehäuse für ca. 75 € pro Paket angeschafft.
 \subsubsection{Authentifizierungstechnologie}
-\subsubsection{Software-Rollout mit apt-get}
+\subsubsection{Software-Rollout mit apt und dpgk}
+Zum Installieren von Software wird unter Debain basierten System (dazu gehört neben Ubuntu und natürlich Debian selbst auch das Standardbetriebssystem des Raspberry Pi: Rasbian) das Programm "dpkg" verwendet.
+Dazu muss eine ".deb" Datei vorliegen. Statt dem manuellen Download, der auch bei jedem Update erneut durchgeführt werden müsste, lässt sich zum Verteilen der deb Dateien apt verwenden.
+Apt selbst nimmt keine Installation vor, es kümmert sich lediglich um die Beschaffung der aktuellsten deb Dateien und deren Abhängigkeiten (ebenfalls im deb Format) und reicht diese zur Installation an dpkg weiter.
+Neue Programme lassen sich mit "apt-get install <packetname>" installieren.
+Dazu hält sich apt eine Liste mit allen verfügbaren Programmen in einem lokalen Cache vor. Um diese Liste zu aktualisieren kann der Befehl "apt-get update" verwendet werden.
+Dabei werden alle in der Datei "/etc/sources.list" bzw. dem Ordner "/etc/sources.list.d/" spezifizierten Quellen abgefragt.
+Die Quellen werden dabei als URL spezifiziert und können unterschiedlichste Protokolle erfordern.
+Beispielsweise HTTP, HTTPS, FTP oder lokale Datenträger.
+Zum aktualisieren aller installierten Programme (nach dem ausführen von "apt-get update") wird der Befehl "apt-get upgrade" verwendet. Dabei wird die Softwareliste im Cache mit den installierten Programmen abgeglichen, ist eine aktuellere Version verfügbar wird deren deb Paket heruntergeladen und mittels dpkg installiert.
+\newline\textbf{apt}\newline
+Zum Aktualisieren der Softwareliste lädt apt zunächst die Release Datei von der Quelle runter, diese ist mit gnupg signiert und enthält Informationen über die Packetquelle wie die unterstützen CPU Architekturen.
+Außerdem sind Hash-Summen der Packages Dateien enthalten, da diese nicht gnupg signiert sind.
+Danach wir die Package Datei heruntergeladen. Diese Datei ist spezifisch für eine Architektur und kann in einem Repository mehrfach vorkommen.
+Sie enthält die Namen aller verfügbaren Pakete dieses Repositories sowie deren Abhängigkeiten, Beschreibung, Pfad und Hash-Werte der zugehörigen deb Datei sowie weitere Metadaten.
+\newline\textbf{dpkg}\newline
+dpkg installiert, konfiguriert und deinstalliert deb Pakete.
+Eine deb Datei enthält in einem Archiv alle Dateien die das zu installierende Programm zur Ausführung benötigt.
+Außerdem sind in einem weiteren Archiv verschiedene Kontrolldateien enthalten, eine davon enthält Metadaten wie Namen des Pakets, Abhängigkeiten und der Beschreibung.
+Daneben sind (optional) Skripte enthalten die ausgeführt werden bevor oder nachdem das Paket Installiert, Deinstalliert oder Aktualisiert wurde. 
+
 \subsubsection{PostgreSQL}
 PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das aus dem Projekt POSTGRES der kalifornischen Universität Berkeley heraus entstanden ist. Der objektrelationale Ansatz bedeutet eine Erweiterung der relationalen DBMS um die Konzepte der Objektorientierung. Somit können in objektrelationalen DBMS beispielsweise komplexe Datenstrukturen mit Attributen definiert werden oder Vererbungen vorgenommen werden \citep[Vgl.][S. 135f.]{datenbanken}. In anderen DBMS muss hierfür \enquote{object relational mapping} (ORM) hinzugezogen werden, um Objektstrukturen auf relationale Tabellen abzubilden \citep[Vgl.][S. 426]{balzert} Viele Konzepte, die in POSTGRES neu waren, wurden später in kommerzielle DBMS übernommen. PostgreSQL ist die Open-Source-Variante von POSTGRES und unterstützt einen großen Teil des SQL-Standards. Zudem bietet es Features wie komplexe Queries, Fremdschlüsselbeziehungen, Trigger, updatefähige Views und transaktionale Integrität. Außerdem kann der Benutzer PostgreSQL beliebig durch neue Datentypen, Funktionen, Operatoren oder Aggregationsfunktionen erweitern. Aufgrund der Open-Source-Lizenz kann PostgreSQL von jedem verwendet, verbessert oder verteilt werden
 \nomenclature{DBMS}{\textbf{D}aten\textbf{b}ank \textbf{M}anagement \textbf{S}ystem}
