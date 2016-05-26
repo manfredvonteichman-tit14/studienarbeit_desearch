@@ -1,0 +1,240 @@
+.tx-pp-video-jw6-advanced .controlArea {
+    /*margin-top: -2px;*/
+}
+
+.videoControl ul,
+.downloadBereich ul,
+#content .videoControl ul,
+#content .downloadBereich ul {
+    margin-left: 0;
+    margin-right: 1%;
+}
+
+.videoControl ul li,
+.downloadBereich ul li,
+#content .videoControl ul li,
+#content .downloadBereich ul li {
+margin: 0;
+    list-style: none;
+    padding-left: 0 !important;
+    background: none !important;
+}
+
+.videoControl a,
+.downloadBereich a {
+    border: 2px solid white;
+    width: 8.92857em;
+    display: block;
+}
+.videoControl a:hover,
+.downloadBereich a:hover {
+    color: #000000 !important;
+}
+.videoControl a:focus,
+.downloadBereich a:focus {
+    /*color: #FFFFFF !important;*/
+}
+.downloadBereich a,
+.videoControl .zusatzFunktionen a {
+    width: 98%;
+}
+
+.jwdisplay .jwtext {
+    color: #000000 !important;
+}
+.jwdisplay:hover .jwtext {
+    #color: #C0490F !important;
+}
+
+.tx-pp-video-jw6-advanced .mediaPlayerFull {
+    /*max-width: 500px;*/
+}
+
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung a {
+   # color: #C0490F !important;
+   color : #164267 !important;
+    padding: 3px 10px 1px 6px;
+    height: 24px;
+    overflow: hidden;
+}
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung a:hover,
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung a:focus {
+    border-color: #164267 !important;
+    text-decoration: none;
+    padding: 1px 8px 1px 4px;
+    height:24px;
+}
+
+.tx-pp-video-jw6-advanced .icon-TogglePlus {
+    background-image: url("../Images/glyphicons-halflings.png") !important;
+    background-position: -288px -120px !important;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+}
+.tx-pp-video-jw6-advanced .icon-ToggleMinus {
+    background-image: url("../Images/glyphicons-halflings.png") !important;
+    background-position: -313px -119px !important;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+}
+
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div:nth-child(-n+2) {
+    /*min-width:105px;*/
+}
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div {
+    position: relative;
+}
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div a {
+    position: relative;
+}
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div a span {
+    position: absolute;
+    padding-top: 0;
+    margin: -2px 0 0 0 ;
+}
+
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul {
+    list-style: none;
+    /*width: 150%;*/ /*damit kontrolliert umgebrochen wird*/
+}
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus,
+.tx-pp-video-jw6-advanced .downloadBereich .downloadcontrol ul li a:focus {
+    background: none !important;
+    #color: #C0490F !important;
+    border: 2px solid #FFF;
+}
+.tx-pp-video-jw6-advanced .downloadBereich .downloadcontrol ul li a i,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i {
+    padding: 7px;
+    display: inline-block;
+    height: 30px;
+    line-height: 14px;
+    margin-top: 1px;
+    vertical-align: text-top;
+    width: 30px;
+}
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul.zusatzFunktionen li {
+    clear: left;
+}
+.tx-pp-video-jw6-advanced .videoControl,
+.tx-pp-video-jw6-advanced .downloadBereich,
+.tx-pp-video-jw6-advanced .vollTextBereich {
+    overflow: hidden;
+}
+.tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung {
+    display: block;
+}
+
+@media only screen and (max-width:480px) {
+    .tx-pp-video-jw6-advanced .videoControl .helpcontrol ul:nth-of-type(-n+2) li {
+        min-width: 100px;
+    }
+    .tx-pp-video-jw6-advanced .videoControl .helpcontrol ul:nth-of-type(-n+2) li:nth-child(3) {
+        clear:left;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    .tx-pp-video-jw6-advanced .controlArea {
+        height: auto;
+    }
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung {
+        background: none;
+        height: auto;
+    }
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div,
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div:last-child {
+        height: 30px;
+        width: 100%;
+        background: url("../Images/back.png") repeat-x scroll left bottom #FFFFFF;
+    }
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung a,
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung a:hover,
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung a:focus {
+        height: 23px;
+    }
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div a i {
+        margin-top: 4px;
+    }
+    .tx-pp-video-jw6-advanced .controlArea .ausklappvorrichtung div a span {
+        top: 2px;
+    }
+}
+
+
+@media only screen and (max-width:250px) {
+    .tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li {
+        clear:left;
+    }
+}
+
+/*Steuerung Icons*/
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i,
+.tx-pp-video-jw6-advanced .downloadBereich .downloadcontrol ul li a i {
+    background: url(../Images/VideoSteuerung.png) no-repeat;
+	display: inline-block;
+	margin-top: -2px;
+}
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-play            { background-position: 0 -30px;      }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-pause           { background-position: 0 0;          }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-stop            { background-position: 0 -120px;     }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-backward        { background-position: 0 -90px;      }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-forward         { background-position: 0 -60px;      }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-volume-down     { background-position: -120px -30px; }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-volume-up       { background-position: -120px 0;     }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-volume-off      { background-position: -120px -60px; }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-eye-close       { background-position: -60px -60px;  }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-headphones      { background-position: -60px -30px;  }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a i.icon-align-justify   { background-position: -60px 0;      }
+.tx-pp-video-jw6-advanced .downloadBereich .downloadcontrol ul li a i.icon-download { background-position: -60px -90px;  }
+
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-play,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-play            { background-position: -30px -30px;      }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-pause,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-pause           { background-position: -30px 0;          }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-stop,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-stop            { background-position: -30px -120px;     }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-backward,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-backward        { background-position: -30px -90px;      }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-forward,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-forward         { background-position: -30px -60px;      }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-volume-down,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-volume-down     { background-position: -150px -30px; }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-volume-up,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-volume-up       { background-position: -150px 0;     }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-volume-off,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-volume-off      { background-position: -150px -60px; }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-eye-close,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-eye-close       { background-position: -90px -60px;  }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-headphones,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-headphones      { background-position: -90px -30px;  }
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:hover i.icon-align-justify,
+.tx-pp-video-jw6-advanced .videoControl .helpcontrol ul li a:focus i.icon-align-justify   { background-position: -90px 0;      }
+.tx-pp-video-jw6-advanced .downloadBereich .downloadcontrol ul li a:hover i.icon-download,
+.tx-pp-video-jw6-advanced .downloadBereich .downloadcontrol ul li a:focus i.icon-download { background-position: -90px -90px;  }
+
+.videoControl .helpcontrol a:link, .videoControl .helpcontrol a:visited{
+	color: #164267;
+	text-decoration: none; 
+	font-size: 12pt;
+	padding: 2px;
+}
+.videoControl ul li a:hover, .downloadBereich ul li a:hover, #content .videoControl ul li a:hover, #content .downloadBereich ul li a:hover{
+	border: 1px solid #164267;
+	margin-bottom: 2px;
+	}
+.tx-pp-video-jw6-advanced ul {
+	margin: 0;
+	}
+.tx-pp-video-jw6-advanced .videoControl ul {
+	float: left;
+	width: 30%;
+	min-width: 125px;
+}
+.tx-pp-video-jw6-advanced .zusatzFunktionen li{
+	width: 200px;
+	}

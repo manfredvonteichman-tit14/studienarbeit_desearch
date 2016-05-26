@@ -39,7 +39,9 @@
   author =  {Akhilesh G. Naik AND Sonia Kuwelkar AND Vijay Magdum},
   title =   {Energy and Current Consumption Analysis for Classic Bluetooth and Bluetooth Low Energy (BLE)},
   journal = {Emerging Research in Computing, Information, Communication and Applications},
-  year =    {2015}
+  year =    {2015},
+  volume =  {Volume 1},
+  pages =   {87-95}
 }
 
 @Article{bmbf,
@@ -79,6 +81,14 @@
   url =     {https://www.deutsche-alzheimer.de/fileadmin/alz/pdf/factsheets/infoblatt1_haeufigkeit_demenzerkrankungen_dalzg.pdf}
 }
 
+@Booklet{dgk,
+  title =        {Verwirrt, verschroben, abgeschoben. Vom richtigen Umgang mit Verhaltensauffälligkeiten und Hirnleistungsstörungen im Alter},
+  author =       {Dr. Ingolf Dürr},
+  howpublished = {Deutsches Grünes Kreuz e. V},
+  address =      {im Kilian, Schuhmarkt 4, 35037 Marburg},
+  year =         {2003}
+}
+
 @Article{digikey,
   author = {Carolyn Mathas},
   title =  {Die Rolle von Sensoren in IoT-Anwendungen für Medizin und Gesundheitswesen},
@@ -112,6 +122,16 @@
   publisher = {mitp-Verlag},
   year =      {2011},
   author =    {Michael C. Feathers}
+}
+
+@Article{hinlauf,
+  author =  {Jochen Gust},
+  title =   {Weggelaufen? Nein: hingelaufen!},
+  journal = {DAS WEBLOG - Bundesministerium für Familie, Senioren, Frauen und Jugend},
+  year =    {2010},
+  month =   {September},
+  note =    {26.05.2016},
+  url =     {https://www.wegweiser-demenz.de/weblog-und-forum/weblog/gust-jochen/beitrag-jochen-gust.html}
 }
 
 @Article{icare-dhbw,
@@ -159,6 +179,15 @@
   year =         {2016},
   note =         {Einsichtnahme: 25.05.2016},
   url =          {https://www.postgresql.org/files/documentation/pdf/9.5/postgresql-9.5-A4.pdf}
+}
+
+@Article{pqsg,
+  author =  {Annika Klugkist},
+  title =   {Standard "Pflege von Bewohnern mit Weglauf- und Hinlauftendenz"},
+  journal = {pqsg.de - das Altenpflegemagazin im Internet},
+  year =    {o.J.},
+  note =    {26.05.2016},
+  url =     {http://www.pqsg.de/seiten/openpqsg/hintergrund-standard-weglaeufer.htm}
 }
 
 @Book{raspi,

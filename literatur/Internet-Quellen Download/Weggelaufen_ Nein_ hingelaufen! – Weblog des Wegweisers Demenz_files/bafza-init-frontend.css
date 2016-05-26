@@ -1,0 +1,558 @@
+.tx-bafza-institutionen.container{
+    width: 100%;
+    font-size: 9pt;
+}
+body .tx-bafza-institutionen .nojs{
+    display: none;
+}
+.tx-bafza-institutionen input[type=text],
+.tx-bafza-institutionen select,
+.tx-bafza-institutionen input[type=file],
+.tx-bafza-institutionen textarea{
+    border: 1px solid #27486B;
+    height: 22px;
+    padding:0px;
+    margin: 5px 0;
+    border-radius: 1px;
+    font-size: 9pt;
+}
+.tx-bafza-institutionen textarea{
+    height: inherit;
+}
+#form-new-init label{
+    margin-top: 5px;
+}
+.tx-bafza-institutionen .required label:after {
+    content:"*";color:red;
+}
+#map_canvas {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 500px;
+    z-index: 2;
+    border-radius: 4px;
+}
+table#iniList{
+    float:left;
+}
+
+.institut-box{
+    background: white;
+    width: 400px;
+    min-height: 200px;
+    z-index: 5;
+    position: absolute;
+    margin: 40px 0 0 20px;
+    padding: 5px;
+    box-shadow: 0px 0px 7px -3px #4F4A4A;
+    border-radius: 4px;
+    border : 1px solid lightgray;
+}
+
+.address-box{
+    padding: 5px;
+    box-shadow: 0px 0px 7px -3px #4F4A4A;
+    border-radius: 4px;
+    background: white;
+    width: 195px;
+    margin: 15px 0px;
+    float: right;
+    border: 1px solid lightgray;
+}
+
+.tx-bafza-institutionen .content_loader{
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.35);
+    height: 100%;
+    /* margin-bottom: 0; */
+    padding: 0;
+    width: 697px;
+    margin-top: 0px;
+    z-index: 100;
+    margin-left: -25px;
+}
+
+.dl-horizontal dt {
+    white-space: inherit;
+}
+
+.table>thead:first-child>tr:first-child>th{
+    background-color: #27496B;
+    border: 1px solid #ffffff;
+    padding: 0;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+}
+.table>thead:first-child>tr:first-child>th a{
+    color: white;
+    text-decoration: none;
+    display:block;
+    padding: 10px 14px 5px 10px;;
+}
+
+th.sortable {
+    background: #27496B url(../Icons/icon_sorting.png) no-repeat right 12px;
+}
+.table>thead:first-child>tr:first-child>th.nosort{
+    padding: 10px 14px 5px 10px;
+}
+
+.table>thead:first-child>tr:first-child>th.sorting {
+    background: #27496B url(../Icons/icon_sorting.png) no-repeat right 12px;
+    padding: 0 15px 5px;
+}
+.table>thead:first-child>tr:first-child>th.sorting_asc{
+    background: #e95d0e url(../Icons/icon_sorting.png) no-repeat right -45px;
+}
+.table>thead:first-child>tr:first-child>th.sorting_desc{
+    background: #e95d0e url(../Icons/icon_sorting.png) no-repeat right -15px;
+}
+.tx-bafza-institutionen .f3-widget-paginator{
+
+    margin-left: 35%;
+}
+.dataTables_paginate.paging_simple_numbers .previous,
+ul.f3-widget-paginator li.previous a{
+    float: left;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 27px;
+    height: 37px;
+    background: url(../Images/buttons_paging_overlay.png) no-repeat left top;
+    text-indent: -20000em;
+    padding: 0;
+    margin: 0;
+    top: -11px;
+}
+.dataTables_paginate.paging_simple_numbers .next,
+ul.f3-widget-paginator li.next a
+{
+    float: left;
+    display: inline;
+    position: relative;
+    overflow: hidden;
+    width: 27px;
+    height: 37px;
+    background: url(../Images/buttons_paging_overlay.png) no-repeat left top;
+    background-position: right top;
+    text-indent: -20000em;
+    padding: 0;
+    margin: 0;
+    top: -11px;
+}
+.dataTables_paginate.paging_simple_numbers span{
+    float:left;
+
+}
+.dataTables_paginate a.paginate_button,
+ul.f3-widget-paginator li
+{
+    list-style: none;
+    float: left;
+    display: inline;
+    text-decoration: none;
+    padding: 0 5px 0 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.dataTables_paginate a.paginate_button.current,
+ul.f3-widget-paginator li.current
+{
+    float: left;
+    display: inline;
+    text-decoration: none;
+    padding: 0 5px 0 5px;
+    font-weight: bold;
+    color: #eb5e0e;
+    cursor: default;
+}
+.dataTables_info
+{
+    position: absolute;
+}
+.dataTables_wrapper .fixpagination{
+    float:right;
+}
+.center-icon{
+    text-align: center;
+    font-size: 20px;
+}
+#checkboxes{
+    display:none;
+}
+#dbsearch{
+    margin: 0;
+    background: #3d7e21 url(../Images/servicebox_bg.png) no-repeat -520px top;
+    clear: both;
+    float: left;
+    display: inline;
+    width: 240px;
+    min-height: 80px;
+    margin: 0;
+    padding: 0 0 8px 0px;
+    box-shadow: #333b46 0 0 5px;
+}
+
+#dbsearch .sidebar-infotext{
+    color:white;
+    padding: 16px;
+}
+
+#dbsearch .institut-foldout{
+    display:none;
+}
+
+#dbsearch #institution-search input[type=text]{
+    width: 210px;
+}
+.checkrow.first-line{
+    height: 24px;
+    border-bottom: 1px solid black;
+}
+#wrapper .tabnavigation li a#link-watchlist{
+    display:none;
+}
+.glyphicon-floppy-remove
+{
+    cursor: pointer;
+    color: rgb(111, 0, 0);
+}
+.glyphicon-floppy-saved{
+    cursor: pointer;
+    color: rgb(0, 111, 0);
+}
+
+#iniList > tbody > tr > td:nth-child(5) > a{
+    display:block;
+}
+
+/* Watchlist*/
+.watchlist .row.head {
+    background-color: #27496B;
+    border: 1px solid #ffffff;
+    padding: 10px 14px 5px 10px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: bold;
+}
+.watchlist .even {
+    background-color: #e8f1fa;
+}
+.watchlist .header{
+    display: block;
+    margin: 7px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.watchlist .glyphicon-floppy-remove{
+    margin-top: 20px;
+}
+#institution-show .center-icon{
+    display: inline-block;
+    margin-left: 5px
+  }
+#institution-show .pull-right{
+    text-align: right;
+}
+#institution-show h2{
+    text-transform: none;
+    background-color: #edeef2;
+    margin: 0 0 10px 0;
+    padding: 4px 10px 4px 15px;
+    font-weight: bold;
+}
+#institution-show .row.details{
+    border-bottom: 1px solid #c1c9d6;
+    word-break: break-word;
+}
+#institution-show #detailImage{
+    overflow: hidden;
+}
+#institution-comment textarea{
+    width: 100%;
+}
+.ui-accordion-header-icon{
+    cursor: pointer;
+}
+.ui-accordion-header-icon.collapsed .glyphicon-minus:before{
+    content: "\2b";
+}
+#institution-comment button,
+#institution-comment input[type=submit],
+#mapGetCoords input[type=submit],
+.tx-bafza-institutionen input[type=submit],
+.tx-bafza-institutionen button[type=submit],
+.tx-bafza-institutionen a.button.link-print-selection {
+    text-align: center;
+    display: block;
+    width: 175px;
+    background: url(../Images/button_overlay_w.png) no-repeat left top;
+    line-height: 37px;
+    height: 37px;
+    color: #ffffff;
+    border: 0 none;
+    float: right;
+    cursor: pointer;
+}
+.tx-bafza-institutionen a.button.link-print-selection{
+    line-height: 22px;
+}
+.contactbox label{
+    width: 80px;
+}
+#item-map{
+    height: 180px;
+}
+#institution-map{
+    height: 650px;
+}
+.ui-state-active .ui-icon,
+.ui-accordion .ui-accordion-header,
+.ui-state-default .ui-icon{
+    background: none;
+    text-indent: inherit;
+    border: none;
+    font-weight: bold;
+    padding-bottom: 0;
+}
+.ui-accordion .ui-accordion-content {
+    border: none;
+    padding-bottom: 0px;
+    padding-top: 0;
+    font-size: 9pt;
+    font-family: Arial, Verdana, sans-serif;
+    line-height: 1.5em;
+    height: inherit;
+}
+.tx-bafza-institutionen
+.link-save{
+    text-decoration: underline;
+    font-size: 9pt;
+    cursor: pointer;
+}
+
+.link-save:focus,
+.ui-accordion-header-icon:focus
+{
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+    text-decoration: underline;
+    color: #01581a;
+}
+
+#showFoldOuts{
+    color:#ffffff;
+    font-size: 9pt;
+    margin-left: 17px;
+    padding: 0 0 5px;
+    cursor: pointer;
+}
+#showFoldOuts span{
+    padding-right: 5px;
+}
+
+#showFoldOuts:hover, #showFoldOuts:focus{
+    text-decoration: underline;
+ }
+ 
+.tx-bafza-institutionen .content p.bodytext{
+	margin: 0;
+	}
+
+
+#institution-search input,
+#institution-search button,
+#institution-search #button-newentry,
+#newentry-box #button-newentry,
+.green-button
+{
+    background: url(../Images/servicebox_buttons.png) no-repeat left top;
+}
+
+#institution-search input
+{
+    padding: 5px 5px 3px 6px;
+    margin: 0px 0 0 15px;
+    width: 200px;
+
+    background-position: -750px top;
+    border: 0;
+    color: #1b1b1b;
+}
+
+#institution-search label
+{
+    display: block;
+    margin: 6px 0 2px 17px;
+    color: #ffffff;
+}
+
+#institution-search #checkboxes label
+{
+    display: inline;
+    margin: 0;
+    color: #000000;
+}
+
+#institution-search label.hidden
+{
+    display: none;
+}
+
+#institution-search .checkbox
+{
+    width: auto;
+    height: auto;
+    margin: 0 10px 0 0;
+    float: left;
+    display: inline;
+}
+
+#checkboxes .checkrow
+{
+    clear: both;
+    margin: 2px 10px 3px 10px;
+}
+
+#checkboxes .checkrow input
+{
+    border: 0;
+    background: none;
+}
+
+#checkboxes label
+{
+
+}
+
+#checkboxes
+{
+    background-color: #ffffff;
+    padding: 5px 0px 5px 0px;
+    margin: 10px 5px 10px 5px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+
+    -moz-box-shadow: inset #909090 0 0 5px;
+    -webkit-box-shadow: inset #909090 0 0 5px;
+    box-shadow: inset #909090 0 0 5px;
+}
+
+#institution-search button,
+#institution-search #button-newentry,
+#newentry-box #button-newentry,
+.green-button
+{
+    display: block;
+    width: 220px;
+    height: 37px;
+    background-position: -500px top;
+    border: 0;
+    line-height: 37px;
+    padding: 0;
+    margin: 0 0 0 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.green-border .green-button{
+    margin-top: 10px;
+}
+
+#institution-search button
+{
+    margin: 0 0 6px 10px;
+}
+
+#institution-search button span,
+#institution-search #button-newentry span,
+#newentry-box #button-newentry span,
+.green-button span
+{
+    color: #ffffff;
+    display: block;
+    cursor: pointer;
+    line-height: 37px;
+    font-weight: bold;
+    padding: 0 0 1px 10px;
+}
+
+#institution-search #button-newentry span,
+#newentry-box #button-newentry span
+{
+    padding: 0 0 1px 13px;
+}
+
+#newentry-box #button-newentry
+{
+    padding: 0;
+    margin: 12px 0 0 10px;
+}
+
+#searchdistance
+{
+    width: 211px;
+    border: 1px solid #000000;
+    margin: 6px 0 6px 15px;
+    padding: 4px 0 4px 8px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+}
+
+.quickselect
+{
+    margin: 5px 5px 10px 5px;
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid #a4b39c;
+}
+
+.quickselect p
+{
+    color: #234812;
+    text-decoration: underline;
+    padding: 0 0 0 8px;
+    line-height: 1.5em;
+    cursor: pointer;
+}
+
+#institution-search p.title
+{
+    padding: 0 0 0 12px;
+    line-height: 1.5em;
+    font-weight: bold;
+    color: #000000;
+    text-decoration: none;
+}
+
+
+#filter-list{
+
+}
+
+#InstitutionSearchListForm label{
+    width: 125px;
+}
+
+#InstitutionSearchListForm  input[type=text]{
+    width: 210px;
+}
+#InstitutionSearchListForm legend {
+    padding: 0 20px;
+    margin: 0 20px;
+    width: inherit;
+    display: inherit;
+    font-size: initial;
+    border:none;
+}
+#InstitutionSearchListForm fieldset{
+    border: 1px solid lightgray;
+    padding: 10px;
+}

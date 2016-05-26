@@ -1,0 +1,253 @@
+ul {
+  
+}
+i {
+    margin-right:0.25em;
+}
+
+.hidden {
+    display:none;
+}
+.gone{
+    position: absolute;
+    top: -999em;
+    left: -999em;
+}
+
+.videoControl ul, .downloadBereich ul, #content .videoControl ul, #content .downloadBereich ul {
+    list-style: none outside none;
+    padding: 0;
+}
+
+.teaserText {
+    padding-bottom: 15px;
+}
+
+.tx-pp-video {
+    margin-bottom: 2em;
+}
+
+.tx-pp-video-jw6-advanced li {
+    list-style-image: none !important;
+}
+
+.tx-pp-video-jw6-advanced.gardient {
+    padding:0.5em;
+    background: #b7deed;
+    background: -moz-linear-gradient(top, #ffffff 0%, #b7deed 4%, #88d6f0 37%, #c2effc 62%, #b7deed 96%, #ffffff 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, #ffffff), color-stop(4%, #b7deed), color-stop(37%, #88d6f0), color-stop(62%, #c2effc), color-stop(96%, #b7deed), color-stop(100%, #ffffff));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #b7deed 4%, #88d6f0 37%, #c2effc 62%, #b7deed 96%, #ffffff 100%);
+    background: -o-linear-gradient(top, #ffffff 0%, #b7deed 4%, #88d6f0 37%, #c2effc 62%, #b7deed 96%, #ffffff 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #b7deed 4%, #88d6f0 37%, #c2effc 62%, #b7deed 96%, #ffffff 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #b7deed 4%, #88d6f0 37%, #c2effc 62%, #b7deed 96%, #ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#ffffff', GradientType=0 );
+}
+
+.tx-pp-video-jw6-advanced .playlist {
+    width: 30%;
+    float: left;
+    background-color: transparent !important;
+}
+
+.tx-pp-video-jw6-advanced .playlist img {
+    width: auto \9;
+}
+.tx-pp-video-jw6-advanced .playlist .info {
+    font-size: 0.9em;
+    color: #000;
+}
+
+
+.tx-pp-video-jw6-advanced .mediaPlayer {
+    width: 70%;
+    margin-left: 30%;
+}
+
+.tx-pp-video-jw6-advanced .mediaPlayerFull {
+    width: 100%;
+    margin-left: 0;
+}
+
+.tx-pp-video-jw6-advanced .jwplayer{
+   /* width: 100% !important;*/
+}
+
+.tx-pp-video-jw6-advanced .ausklappvorrichtung {
+    width: 100%;
+    height:24px;
+    display: inline-block;
+    margin-bottom: 0px;
+    background: #FFF url(../Images/back.png) repeat-x left top;
+}
+
+@media (max-width: 768px){
+    .tx-pp-video-jw6-advanced .playlist {
+        width: 100%;
+        float: none;
+    }
+    .tx-pp-video-jw6-advanced .mediaPlayer {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+.videoControl,
+.downloadBereich,
+.vollTextBereich,
+.audioBereich{
+    width: 97%;
+    display: block;
+    overflow: auto;
+    padding-left:3%;
+    background-color: #FFF;
+}
+
+.controlArea{
+    background-color: #FFFFFF;
+    border:1px solid #C3C3C3;
+    border-top:none;
+    overflow: hidden;
+}
+
+.videoControl a,
+.downloadBereich a{
+    color: #000;
+}
+
+/**BITV**/
+.tx-pp-video-jw6-advanced a img{
+    border: 2px solid transparent;
+}
+.tx-pp-video-jw6-advanced a:focus{
+    border: 2px solid #B60000;
+}
+
+/*Playliste*/
+.tx-pp-video-jw6-advanced .playlist a:focus{
+    border: none;
+}
+
+.tx-pp-video-jw6-advanced a:focus img{
+    border: 2px solid #B60000;
+}
+
+/*Ausklappen*/
+.tx-pp-video-jw6-advanced .videoControl ul {
+    float: left;
+    width: 20%;
+    min-width: 125px;
+}
+
+.tx-pp-video-jw6-advanced .ausklappvorrichtung div {
+    float: left;
+    width: 25%;
+    background: url(../Images/divider.png) no-repeat right center;
+}
+.tx-pp-video-jw6-advanced .ausklappvorrichtung div:last-child {
+    background-image: none;
+}
+/*
+Umsetzung fuer Design 1 - Tabs
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a {
+    background-color: #fff;
+    border: 2px solid #c3c3c3;
+    border-top: 2px solid #FFF;
+    border-radius: 0px 0px 8px 8px;
+    -moz-border-radius: 0px 0px 8px 8px;
+    -webkit-border-radius: 0px 0px 8px 8px;
+    display: block;
+    padding: 0.5em;
+}
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a:focus {
+    border: 2px solid #B60000;
+    text-decoration: none;
+}*/
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a {
+    color: #B60000;
+    font-weight: bold;
+    display: block;
+    overflow: hidden;
+    height:20px;
+    padding: 3px 0 0 6px;
+}
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a:focus,
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a:hover {
+    border: 2px solid #B60000;
+    padding: 1px 0 0 4px;
+    height: 19px;
+}
+
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a span {
+    padding-top: 2px;
+}
+
+
+
+.tx-pp-video-jw6-advanced .ausklappvorrichtung a:focus img{
+    border: none;
+}
+
+/*Steuerung Buttons*/
+.tx-pp-video-jw6-advanced .videoControl ul.zusatzFunktionen {
+    clear: both;
+    width: auto;
+}
+
+/*Volltext*/
+.tx-pp-video-jw6-advanced .vollTextControl {
+    padding: 0 10px 10px 0;
+}
+.tx-pp-video-jw6-advanced .vollTextControl div {
+    padding-top: 15px;
+    zoom: 0 !important;
+}
+
+/*Caption*/
+.tx-pp-video-jw6-advanced .jwcaptions div{
+    background-color:rgba(0, 0, 0, 0.50);
+    visibility: visible !important;
+    bottom: 25px !important;
+}
+.tx-pp-video-jw6-advanced .jwcaptions div span {
+    background: none !important;
+}
+
+
+/*Player Toggle Icons*/
+.tx-pp-video-jw6-advanced .icon-TogglePlus{
+    background: url(../Images/togglePlus.png) no-repeat left center;
+}
+.tx-pp-video-jw6-advanced .icon-ToggleMinus{
+    background: url(../Images/toggleMinus.png) no-repeat left center;
+}
+
+
+/*DOCK immer anzeigen*/
+/*
+.jwdock,
+.jwcontrolbar {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+*/
+.jwdisplayIcon:focus {
+    cursor: pointer;
+}
+
+/*BITV*/
+/*Dock Focus*/
+.jwdockbuttons button:focus div{
+    margin:0;
+    border: 2px solid #B60000;
+}
+/*Controler Focus*/
+.jwcontrolbar button:focus{
+    border: 2px solid #B60000;
+}
+
+/*Audio Player ausblenden*/
+.gone .jwplay,
+.gone .jwmute {
+    display: none;
+}

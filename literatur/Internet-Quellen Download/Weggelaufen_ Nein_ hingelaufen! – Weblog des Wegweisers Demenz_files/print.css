@@ -1,0 +1,73 @@
+/* line 1, ../../Private/Scss/print.scss */
+.plain-text, body, #content,
+#leftcontent, #footer,
+.csc-textpic-caption, .teaserbox .csc-header a,
+.teaserbox .csc-header h3 {
+  background: white none !important;
+  color: black !important;
+  font-size: 13pt !important;
+  text-align: justify;
+  width: auto;
+  float: none;
+}
+
+/* line 10, ../../Private/Scss/print.scss */
+.nofloat, #content,
+#leftcontent {
+  float: none !important;
+}
+
+/* line 14, ../../Private/Scss/print.scss */
+.noborder, #content,
+#leftcontent {
+  border: 0 none #fff;
+}
+
+/* line 18, ../../Private/Scss/print.scss */
+body {
+  overflow: visible;
+}
+
+/* line 35, ../../Private/Scss/print.scss */
+#footer {
+  display: block;
+}
+
+/* line 39, ../../Private/Scss/print.scss */
+h1, h2, h3, h4, h5, h6 {
+  color: black !important;
+}
+
+/* line 49, ../../Private/Scss/print.scss */
+.teaserbox .csc-header h3 {
+  padding: 0.35em 0;
+}
+
+/* line 54, ../../Private/Scss/print.scss */
+.teaserbox-link,
+#servicebox,
+#navigation,
+#sub-navigation,
+.col-right {
+  display: none;
+}
+
+/* line 62, ../../Private/Scss/print.scss */
+.col-left {
+  width: 100%;
+}
+
+/* line 65, ../../Private/Scss/print.scss */
+a[href]::after {
+  content: " ";
+}
+
+/* line 68, ../../Private/Scss/print.scss */
+.search-widget {
+  display: none;
+}
+
+/* line 71, ../../Private/Scss/print.scss */
+.footer {
+  display: none;
+}
