@@ -4,17 +4,7 @@
 \subsection{Aktueller Stand der Technologie}
 
 \subsubsection{Bluetooth-Technologie}\label{sssec:BLE}
-Bluetooth ist eine drahtlose Datenübertragunsgtechnologie, die basierend auf der Funktechnik Verbindungen zwischen Geräten über eine kurze Distanz ermöglicht. Im engen Nahbereich gilt Bluetooth als der Kommunikationsstandard \citep[Vgl.][S. 133]{mobil-sicher}. Mit dem Bluetooth Low Energy (BLE \nomenclature{BLE}{\textbf{B}luetooth \textbf{L}ow \textbf{E}nergy}) Standard, der 2009 verabscheidet wurde der Stromverbrauch für eine Bluetooth-Verbindung in den Endgeräten drastisch reduziert. Dies gelang unter anderem durch kürzere Verbindungsaufbauzeiten und Schlafphasen (Standby) zwischen den Sendezyklen. Eine vergleichende Untersuchung zum Energieverbrauch von Bluetooth und BLE veröffentlichten \cite{ble-energy}. Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. \newline
-Als Ergebnis des Workshops auf der Hütte in Balderschwang gibt es eine Python Klasse, die einen Bluetooth LE Scann starten kann und basierend auf einer Liste von MAC Adressen eine Callbackfunktion aufruft, wann immer eine der MAC Adressen in der Liste gesichtet wird.
-Diese Klasse verwendet leider die Bibliothek "bleep", die sich im Laufe der Projektarbeit als nicht geeignet herausstellte, da sie folgende Probleme aufweist:
-\begin{itemize}
-	\item Wird sie nicht mit root Rechten ausgeführt, kommt es zum Absturz.
-	\item Die Installation ist für eine großflächig Verteilung zu aufwendig und erfordert unter anderem die Installation einer modifizierten Version von "pygattlib". \cite{bleep-installation}
-	\item Es handelt sich dabei um ein Einmannprojekt, dessen Entwickler die Bibliothek aus einem privaten Bedürfnis heraus geschaffen hat. Damit ist die Softwarequalität und Wartung abhängig von einer einzelnen Person.
-\end{itemize}
-Zur Bluetooth Kommunikation unter Linux kann der im Linux Kernel enthaltene Bluetooth Stack "bluez" verwendet werden, dieser enthält auch Treiber für die meisten Bluetooth Chipsets.
-Auch die bleep Bibliothek verwendet bluez genauso wie eine neue Implementierung der Scanner-Klasse, die im Rahmen der Projektarbeit ohne dir Verwendung von bleep geschaffen wurde.
-In der Reimplementierung wurden dabei die Schnittstellen der Klasse erhalten, die Kommunikation mit bluez findet nun über den DBus statt. Dies erfordert keine root Rechte und ist neben den Kommandozeilen Tools der einzig im offiziellen Git-Repository von bluez dokumentierte Weg zum Ansprechen der Schnittstellen. \cite{bluez-git} Außerdem werden damit nur noch die DBus Bibliothek von Python und bluez auf den DeSearch-Box benötig, diese sind in den offiziellen Paketquellen enthalten und damit einfach zu verteilen und aktualisieren.
+Bluetooth ist eine drahtlose Datenübertragunsgtechnologie, die basierend auf der Funktechnik Verbindungen zwischen Geräten über eine kurze Distanz ermöglicht. Im engen Nahbereich gilt Bluetooth als der Kommunikationsstandard \citep[Vgl.][S. 133]{mobil-sicher}. Mit dem Bluetooth Low Energy (BLE \nomenclature{BLE}{\textbf{B}luetooth \textbf{L}ow \textbf{E}nergy}) Standard, der 2009 verabscheidet wurde der Stromverbrauch für eine Bluetooth-Verbindung in den Endgeräten drastisch reduziert. Dies gelang unter anderem durch kürzere Verbindungsaufbauzeiten und Schlafphasen (Standby) zwischen den Sendezyklen. Eine vergleichende Untersuchung zum Energieverbrauch von Bluetooth und BLE veröffentlichten \cite{ble-energy}. 
 
 
 \subsubsection{Raspberry Pi}
@@ -54,11 +44,64 @@ PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das au
 \nomenclature{DBMS}{\textbf{D}aten\textbf{b}ank \textbf{M}anagement \textbf{S}ystem}
 \citep[Vgl.][preface, S. lxvi]{postgres}. Für das DeSearch-Projekt eignet sich PostgreSQL vor allem wegen seiner Open-Source-Lizenz, was die Kosten für das Projekt gering hält. Zudem ist die Möglichkeit, eigene Datentypen definieren zu können, von Vorteil. Da die Datenbank auf dem Zentral-Raspberry verwendet wird, der meist über SSH in der Konsole bedient wird, ist PostgreSQL einfach zu bedienen, da es über einen Konsolenclienten verfügt.
 
+\subsubsection{Services unter Linux mit systemd}\label{sssec:systemd}
+\textbf{systemd} ist ein Init-Tool unter Linux, das als neuere Alternative zu sysvinit und upstart gilt. Es ist für das Starten von Services und Mounten von Hard Disks beim boot zuständig. Systemd verwaltet Hintergrunddienste(Daemons) und bietet ein Event-gesteuertes Starten von diesen, analog zum Runlevel-Prinzip von sysvinit. Dies bedeutet, dass bestimmte Gruppen von Services an bestimmten Punkten beim Boot gestartet werden, zum Beispiel sobald die GUI verfügbar ist oder sobald eine aktive Netzwerkverbindung besteht. In Tabelle \ref{tab:lvl} ist ein Vergleich zwischen den sysvinit-runlevels und den systemd-targets zu sehen. 
+\begin{table}[h]
+	\begin{tabular}{|p{2,5cm}|p{3,5cm} |p{8,5cm} | }
+		\hline
+		\textbf{sysvinit Runlevel} & \textbf{systemd-target} & \textbf{Bedeutung}\\ \hline
+		0 & poweroff.target & System-Shutdown	\\ \hline
+		1, single & rescue.target & Single-User-Modus \\ \hline
+		2,4 & multi-user.target & Benutzerdefinierte runlevels, per default identisch mit runlevel 3 \\ \hline
+		3 & multi-user.target & Multi-User-Umgebung, ohne graphische Benutzer\-oberfläche (Login über Konsole möglich)\\ \hline
+		5 & graphical.target & Multi-User-Umgebung, graphische Benutzer\-oberfläche \\ \hline
+		6 & reboot.target & System-Reboot \\ \hline
+		emergency & emergency.target & Emergency Shell\\ \hline
+		
+	\end{tabular}
+	\caption{Übersicht über die targets von systemd, in Anlehnung an \cite{fedora}}
+	\label{tab:lvl}
+\end{table}
+Mithilfe dieser targets können beispielsweise voneinander abhängige Hintergrundservices nacheinander gestartet werden. Neben den runlevels entsprechenden targets gibt es noch einige weitere, wie zum Beispiel das \textbf{network-online.target}.
+Auch der Raspberry Pi mit Raspbian verwendet systemd. Für die DeSearch-Boxen eignet es sich, um den Scan-Vorgang als Hintergrundprozess zu verwalten und so sicherzugehen, dass dieser stabil läuft und nach eventuellem reboot selbständig wieder startet.\newline
+Über die Konsole kann \textbf{systemctl} aufgerufen werden. Dies ist die Überwachungs- und Steuereinheit von systemd. Mit \texttt{systemctl start xyz.service} kann ein Service gestartet werden. Respektive kann mit  \texttt{systemctl restart xyz.service} und \texttt{systemctl stop xyz.service} der Service neugestartet oder angehalten werden. Mit  \texttt{systemctl status xyz.service} wird eine Ausgabe erzeugt, die über den Status des Service informiert und eventuelle Ausgaben des Service anzeigt. Diese Kommandos und alle weiteren Optionen von systemctl befinden sich im Manual \citep[][]{systemctl-man}.
+
 \subsection{Umsetzung der Anforderungen}
 
-\subsubsection{Vernetzung der DeSearch-Boxen und Infrastruktur}
 \subsubsection{User-Authentifizierung}
-\subsubsection{Erkennen der Marken und Kommunikation zur Zentrale}
+\subsubsection{Erkennen der Marken über Bluetooth}
+Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. \newline
+Als Ergebnis eines studentischen Workshops auf der Hütte in Balderschwang gibt es eine Python Klasse, die einen BLE Scan starten kann und basierend auf einer Liste von MAC Adressen eine Callback-Funktion aufruft, wann immer eine der MAC Adressen in der Liste gesichtet wird.
+Diese Klasse verwendet die Bibliothek "bleep", die sich allerdings im Laufe der Projektarbeit als nicht geeignet herausstellte, da sie folgende Probleme aufweist:
+\begin{itemize}
+	\item Wird sie nicht mit root-Rechten ausgeführt, kommt es zum Absturz.
+	\item Die Installation ist für eine großflächige Verteilung zu aufwändig und erfordert unter anderem die Installation einer modifizierten Version von "pygattlib" \citep[Vgl.][]{bleep-installation}.
+	\item Es handelt sich dabei um ein Einmannprojekt, dessen Entwickler die Bibliothek aus einem privaten Bedürfnis heraus geschaffen hat. Damit ist die Softwarequalität und Wartung abhängig von einer einzelnen Person.
+\end{itemize}
+Zur Bluetooth-Kommunikation unter Linux kann der im Linux Kernel enthaltene Bluetooth Stack "bluez" verwendet werden. Dieser enthält auch Treiber für die meisten Bluetooth Chipsets.
+Auch die bleep Bibliothek verwendet bluez. Im Rahmen der Projektarbeit erfolgt eine Reimplementierung der Scanner-Klasse in Python, die ohne die Verwendung von bleep auskommt.
+In der Reimplementierung wurden dabei die Schnittstellen der Klasse erhalten, die Kommunikation mit bluez findet nun über den DBus statt. Dies erfordert keine root-Rechte und ist neben den Kommandozeilen-Tools der einzig im offiziellen Git-Repository von bluez dokumentierte Weg zum Ansprechen der Schnittstellen \citep[Vgl.][]{bluez-git}. Außerdem werden damit nur noch die DBus-Bibliothek von Python und bluez auf den DeSearch-Boxen benötigt, diese sind in den offiziellen Paketquellen enthalten und damit einfach zu verteilen und zu aktualisieren.
+
+\subsubsection{Robustheit des Systems durch Services}\label{sssec:services}
+Um eine gewisse Robustheit des Systems zu gewährleisten, muss sichergestellt werden, dass die Python-Skripte zum Scan auf den DeSearch-Boxen sowie die Python-Skripte des Web-Servers auf der Zentrale immer laufen. Dies wird durch Hintergrundservices realisiert. Anforderung an die Services ist es, dass sie sich nach einem Reboot selbständig starten und nach einem unerwarteten Fehler oder Ausführungs-Stop selbständig re-spawnen(d.h. sich selbst neu-starten). Realisiert wurde dies durch systemd-Services, welche in Kapitel \ref{sssec:systemd} bereits erläutert wurden. Die Konfiguration innerhalb des Service ist für Zentrale und DeSearchBox gleich, da die Anforderungen auch gleich sind. Um einen Hintergrundservice anzulegen, muss zunächst das \texttt{.service}-File unter dem Pfad \texttt{/lib/systemd/system/} angelegt werden. In diesem Verzeichnis werden alle Services von systemd nachgeschlagen. Beispielhaft ist in Abbildung \ref{fig:service} das Service-File der DeSearch-Zentrale zu sehen.
+\begin{figure}[bth]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/service-systemd}
+	\caption[Service-File auf dem Zentral-Pi]{Service-File auf dem Raspberry Pi, der als Zentrale fungiert.}
+	\label{fig:service}
+\end{figure}
+Zunächst werden unter \texttt{[Unit]} Informationen zu dieser Service-Unit aufgeführt. Dies ist die Beschreibung des Service (unter Description) und die Information, wann der Service beim Boot gestartet werden soll. Hier stehen unter Anderem die Optionen \enquote{Before} und \enquote{After} zur Verfügung. Im \texttt{desearch-server.service} wird durch \enquote{After=network-online.target} ausgedrückt, dass der Service erst gestartet werden darf, wenn eine aktive Netzwerkverbindung besteht (siehe auch Kapitel \ref{sssec:systemd}). Ansonsten wird der Start des Service verzögert, bis die angegebene Bedingung erfüllt ist.
+In der darauf folgenden \texttt{[Service]}-Sektion wird angegeben, was der Hintergrundservice tun soll. Die Angabe des \enquote{simple}-Type bewirkt, dass der Prozess, den der Service startet, auch dessen Haupt-Prozess ist. Anders verhält es sich, wenn hier \enquote{forking} gewählt wird: Dann verhält sich der Prozess wie ein traditioneller UNIX-Daemon und startet als Kindprozess des Service. \\
+Nach der Angabe des Typs wird unter \enquote{ExecStart} angegeben, was der Service ausführen soll. Hier wird zunächst der Pfad der Python-Installation angegeben und anschließend der Pfad des deSearch-Server-Skripts, das von Python ausgeführt werden soll. Zusätzlich wird noch ein Working-Directory angegeben, da Python sonst von dem Service im Root-Verzeichnis gestartet wird und dann die restlichen benötigten Python-Skripte nicht gefunden werden. \\
+Der nächste Parameter, \enquote{Restart}, bestimmt wann der Service neu gestartet werden soll. Hier gibt es verschiedene Optionen, die in der man-Page von systemd nachgeschlagen werden können \citep{systemd-service}. Für lang laufende Hintergrundprozesse empfiehlt die man-Page die Wahl von \enquote{Restart=on-failure}. Der Service wird bei unsauberen Exit-Codes (ungleich 0), wenn er von einem Signal beendet wird (z.B. Core Dump), bei einem Timeout oder (falls konfiguriert) bei fehlendem Watchdog-Signal neu gestartet. Die maximale Laufzeit des Service wird zudem im nächsten Argument \enquote{RuntimeMaxSec} auf unendlich gesetzt.\\
+Im \texttt{[Install]}-Abschnitt wird abschließend festgelegt, welche Abhängigkeiten ein Service hat. Die Angabe \enquote{multi-user.target} stellt eine Abhängigkeit her, die bewirkt, dass der Service dann gestartet wird, wenn auch die Multi-User-Umgebung gestartet wird. \\
+Nach dem Anlegen des Service-Files wird \texttt{systemctl daemon-relaod} einmalig ausgeführt, um anschließend mit \texttt{systemctl enable desearch-server.service} den Service zu aktivieren. Nun kann entweder durch einen reboot der Service automatisch gestartet werden (wie konfiguriert) oder mittels \texttt{systemctl start desearch-server.service} auch manuell. Abbildung \ref{fig:systemctl-status} zeigt die Statusausgabe von Systemctl nach erfolgreichem Start des Service.
+\begin{figure}[bth]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/service-status}
+	\caption[Status-Ausgabe von Systemctl]{Status-Ausgabe von Systemctl für den deSearch-Zentral-Service.}
+	\label{fig:systemctl-status}
+\end{figure}
 \subsubsection{Datenbankschema}
 In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Zentrale arbeitet. 
 \begin{figure}
