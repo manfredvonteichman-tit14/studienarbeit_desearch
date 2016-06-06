@@ -166,6 +166,14 @@
   url =    {http://www.ravensburg.dhbw.de/dhbw-ravensburg/aktuelles/detail/2015/11/icare_-_wettbewerbsidee_wird_zum_forschungsprojekt.html}
 }
 
+@Electronic{IHB,
+  month = {Dezember},
+  year =  {2015},
+  title = {iCare - Erhalt der Mobilität behinderter und dementer Menschen},
+  note =  {Einsichtnahme: 06.06.2016},
+  url =   {http://www.bodenseehochschule.org/wp-content/uploads/2015/12/IBH\_ProjektPlakate\_A0\_iCare.pdf}
+}
+
 @Book{martin,
   title =     {Clean Code. Refactoring, Patterns, Testen und Techniken für sauberen Code},
   publisher = {mitp-Verlag},
@@ -237,7 +245,8 @@
 
 @Manual{systemd-service,
   title = {systemd.service — Service unit configuration},
-  note =  {Einsichtnahme: 02.06.2016}
+  note =  {Einsichtnahme: 02.06.2016},
+  url =   {https://www.freedesktop.org/software/systemd/man/systemd.service.html#}
 }
 
 @Book{thesmann,

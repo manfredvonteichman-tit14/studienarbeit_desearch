@@ -7,7 +7,7 @@
 Bluetooth ist eine drahtlose Datenübertragunsgtechnologie, die basierend auf der Funktechnik Verbindungen zwischen Geräten über eine kurze Distanz ermöglicht. Im engen Nahbereich gilt Bluetooth als der Kommunikationsstandard \citep[Vgl.][S. 133]{mobil-sicher}. Mit dem Bluetooth Low Energy (BLE \nomenclature{BLE}{\textbf{B}luetooth \textbf{L}ow \textbf{E}nergy}) Standard, der 2009 verabscheidet wurde der Stromverbrauch für eine Bluetooth-Verbindung in den Endgeräten drastisch reduziert. Dies gelang unter anderem durch kürzere Verbindungsaufbauzeiten und Schlafphasen (Standby) zwischen den Sendezyklen. Eine vergleichende Untersuchung zum Energieverbrauch von Bluetooth und BLE veröffentlichten \cite{ble-energy}. 
 
 
-\subsubsection{Raspberry Pi}
+\subsubsection{Raspberry Pi}\label{sssec:raspberry}
 Für die Zentrale und die DeSearch-Boxen ist zunächst eine Hardware-Entscheidung notwendig. Benötigt werden Mikrocontroller oder Mikrocomputer mit folgenden Eigenschaften:
 \begin{itemize}
 	\item W-LAN Verbindung von der Box zur Zentrale möglich
@@ -16,7 +16,14 @@ Für die Zentrale und die DeSearch-Boxen ist zunächst eine Hardware-Entscheidun
 	\item Datenbank-Installation zur Datenhaltung notwendig
 \end{itemize}
 Zudem sollen die Kosten pro Gerät so gering wie möglich gehalten werden. \\
-Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer ist als eine Kreditkarte. Die Anschaffungskosten liegen ohne Zubehör bei etwa 42 €. Für diese geringen Anschaffungskosten erhält man einen vollwertigen, Linux-Basierten Computer mit einer ARM-CPU, W-LAN und Bluetooth-Schnittstelle. Im Gegensatz zu Mikrocontrollern ist der Raspberry Pi leistungsfähiger und läuft stabiler \citep[Vgl.][S.35ff.]{raspi}. Auf einem Arduino beispielweise kann nur C++-Code in einer Endlos-Schleife ausgeführt werden. Der Pi hingegen bietet die Möglichkeit, Bash-Skripte, Python-Code, Datenbank-Anfragen und Webserver gleichzeitig auszuführen. Die Entscheidung für Raspberry Pi ist auch aufgrund der relativ niedrigen Anschaffungskosten für einen kompletten Rechner mit Betriebssystem gefallen. Für die Entwickler ist das Betriebssystem Linux zudem am einfachsten zu bedienen. Für das Projekt werden Pakete mit SD-Karte, W-LAN und Bluetooth-Dongles, Netzteil und Gehäuse für ca. 75 € pro Paket angeschafft.
+Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer ist als eine Kreditkarte. In Abbildung \ref{fig:raspi} ist ein Raspberry Pi in der Draufsicht abgebildet.
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/Raspberrypi}
+	\caption[Raspberry Pi in der Draufsicht]{Raspberry Pi Model 2, fungiert im DeSearch-Projekt als DeSearch-Box und als Zentrale, Quelle: https://en.wikipedia.org/wiki/Raspberry\_Pi}
+	\label{fig:raspi}
+\end{figure}
+ Die Anschaffungskosten liegen ohne Zubehör bei etwa 42 €. Für diese geringen Anschaffungskosten erhält man einen vollwertigen, Linux-Basierten Computer mit einer ARM-CPU, W-LAN und Bluetooth-Schnittstelle. Im Gegensatz zu Mikrocontrollern ist der Raspberry Pi leistungsfähiger und läuft stabiler \citep[Vgl.][S.35ff.]{raspi}. Auf einem Arduino beispielweise kann nur C++-Code in einer Endlos-Schleife ausgeführt werden. Der Pi hingegen bietet die Möglichkeit, Bash-Skripte, Python-Code, Datenbank-Anfragen und Webserver gleichzeitig auszuführen. Die Entscheidung für den Raspberry Pi ist auch aufgrund der relativ niedrigen Anschaffungskosten für einen kompletten Rechner mit Betriebssystem gefallen. Für die Entwickler ist das Betriebssystem Linux zudem am einfachsten zu bedienen. Für das Projekt werden Pakete mit Raspberry Pi Model 2, SD-Karte, W-LAN und Bluetooth-Dongles, Netzteil und Gehäuse für ca. 75 € pro Paket angeschafft.
 \subsubsection{Authentifizierungstechnologie}
 \subsubsection{Software-Rollout mit apt und dpgk}
 Zum Installieren von Software wird unter Debain basierten System (dazu gehört neben Ubuntu und natürlich Debian selbst auch das Standardbetriebssystem des Raspberry Pi: Rasbian) das Programm "dpkg" verwendet.
@@ -59,7 +66,7 @@ PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das au
 		emergency & emergency.target & Emergency Shell\\ \hline
 		
 	\end{tabular}
-	\caption{Übersicht über die targets von systemd, in Anlehnung an \cite{fedora}}
+	\caption[Übersicht über die targets von systemd]{Übersicht über die targets von systemd, in Anlehnung an \cite{fedora}}
 	\label{tab:lvl}
 \end{table}
 Mithilfe dieser targets können beispielsweise voneinander abhängige Hintergrundservices nacheinander gestartet werden. Neben den runlevels entsprechenden targets gibt es noch einige weitere, wie zum Beispiel das \textbf{network-online.target}.
@@ -138,6 +145,7 @@ Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nu
 		\textbf{Pi-Nummer} & \textbf{Funktion} & \textbf{Installationsort} &  \textbf{Erreichbarkeit} \\ \hline
 		3 & Zentrale & Büro Herr Judt & statische IP 141.68.30.39 oder \mbox{Judt-Master.it.ba-ravensburg.de} \\ \hline
 		5 & DeSearch-Box & Haupteingang oberhalb der Treppe & Tunnel über Zentrale, Port 19005 \\ \hline
+		6 & DeSearch-Box & DHBW-Mensa (Kühlschrank) & Tunnel über Zentrale, Port 19006 \\ \hline
 		
 	\end{tabular}
 	\caption{Übersicht der Raspberry Pi's mit Funktion, Installationsort und Erreichbarkeit}
@@ -146,7 +154,7 @@ Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nu
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{./images/tunnel.png}
+	\includegraphics[width=\textwidth]{images/tunnel.png}
 	\caption[Schematische Darstellung der Verwendung des SSH Tunnels]{\textbf{Schematische Darstellung der Verwendung des SSH Tunnels} - Beispielhaft ist hier eine Verbindung vom Administrator zur DeSearch-Box 6 dargestellt (roter Pfeil), Quelle: eigene Darstellung}
 	\label{fig:tunnel}
 \end{figure} 
