@@ -1,0 +1,53 @@
+Vorgehensweise bei einem neuen Pi:
+-WLAN Verbindung herstellen
+-apt-get purge libreoffice* wolfram-engine  
+-apt-get autoremove 
+-apt-get update
+-apt-get upgrade
+-Hostnamen ändern: /etc/hostname und /etc/hosts --> z.B. auf pi9
+-reboot
+-Statische IP konfigurieren: 
+	-/etc/network/interfaces
+	-auto eth0
+	allow-hotplug eth0
+	iface eth0 inet static
+    address 192.42.42.2
+    netmask 255.255.255.0
+	
+-WLAN für DHBW konfigurieren:
+	-/etc/wpa_supplicant/wpa_supplicant.conf
+	
+	network={
+			ssid="DHBW-STUDENT"
+			key_mgmt=WPA-EAP
+			identity="IT\ecare-bb"
+			password="<Passwort>"
+	}
+
+
+-Tunnel einrichten:
+	-tunnel.sh und tunnel im home-Verzeichnis anlegen
+	-Berechtigungen mit chmod
+	-crontab -e darin tunnel.sh nach reboot starten
+	-autossh installieren
+	
+-DeSearch-Software installieren:
+	-/etc/apt/sources.list.d/desearch.list anlegen
+	-deb https://www.philipp1994.de/apt/ vivid desearch
+	-sudo apt-get install apt-transport-https
+	-wget https://philipp1994.de/philipp1994.de.gpg für den Public Key des Servers
+	-sudo apt-key add philipp1994.de.gpg -->installiert den Key
+	-die gpg-Datei kann jetzt gelöscht werden
+	-sudo apt-get update --> jetzt wird die deSearch-Software über apt-get geladen
+	-sudo apt-get install desearch-client
+	-Box-Nummer gleich Pi-Nummer eingeben
+	-Service-URL https://judt-master.it.ba-ravensburg.de/service
+	
+-Mit service desearch-client status überprüfen. Running=erfolgreich installiert
+-DeSearch-Box der Zentrale bekannt machen:
+	-auf Client: sudo /opt/desearch-client/keyExchange.py
+	-auf Zentrale: sudo /opt/desearch-server/keyExchange.py
+	-Keys werden generiert, nach Vergleich: j
+	-
+	
+	
