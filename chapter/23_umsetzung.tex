@@ -75,12 +75,12 @@ Auch der Raspberry Pi mit Raspbian verwendet systemd. Für die DeSearch-Boxen ei
 
 \subsection{Umsetzung der Anforderungen}
 
-\subsubsection{Authentifizierung}
+\subsubsection{Authentifizierung} \label{cap:authentifizierung}
 Im System gibt es 4 verschiedene Authentifizierung (vgl. Tabelle \ref{tab:authentifizierungen}).\newline
 Die Zentrale authentifiziert sich bei den Nutzern und Boxen (Authentisierende) mittels SSL Zertifikat, wie jeder Webserver der im Internet über HTTPS zur Verfügung steht. Aktuell handelt es sich dabei um ein selbst signiertes Zertifikat, das auf den Boxen und den Endgeräten der Nutzer manuell eingespielt werden muss. Ist die DeSearch Zentrale zukünftig über eine globale Domain erreichbar, kann auch ein Zertifikat bei einem Root CA beantragt werden, welcher die Browserhersteller vertrauen. \newline
 Die Boxen authentifizieren sich gegenüber der Zentrale ebenfalls mittels eines SSL Zertifikates.
 Dieses muss beim installieren der Box zwischen Zentrale und Box ausgetauscht werden. Dazu wird auf der Box das Python Script "/opt/desearch-client/keyExchange.py" und der Zentrale die Serverversion des Scripts "/opt/desearch-server/keyExchange.py" mit root Berechtigung gestartet. Daraufhin tauschen Server und Klient ihre Zertifikate aus und zeigen deren Hashwerte an. Die Übereinstimmung ist dann zu prüfen um MITM Attacken auszuschließen. Nach bestätigen der Gleichheit werden die Zertifikate abgespeichert. \newline
-Nutzer authentifizieren sich bei der Zentrale mit einer Nutzername / Passwort Kombination. Danach erstellt die Zentrale ein Token, das für alle weiteren Anfragen verwendet wird. Das Token wir selbstverständlich transparent für den Nutzer vom JavaScript Code des Userinterfaces entgegen genommen, verwaltet und mitgesendet.
+Nutzer authentifizieren sich bei der Zentrale mit einer Nutzername / Passwort Kombination. Danach erstellt die Zentrale ein Token, das für alle weiteren Anfragen verwendet wird. Das Token wird selbstverständlich transparent für den Nutzer vom JavaScript Code des Userinterfaces entgegen genommen, verwaltet und mitgesendet.
 
 \begin{table}[h]
 	\begin{tabular}{ | l | l | l | l |}
@@ -145,6 +145,17 @@ In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Z
 \\Die Tabelle \textbf{GefundeneMarken} kann eine Suchaktion protokollieren. Jeder Treffer, den eine Box registriert und an die Zentrale sendet, wird hier dokumentiert. Ein Treffer wird mit der zugehörigen BoxID, der MarkenID, dem Zeitpunkt und der Position in die Datenbank gelegt. Somit können auf der Web-Oberfläche alle Treffer in einer Zeitreihe angezeigt werden. Aus Datenschutzgründen wird diese Tabelle nach jeder abgeschlossenen Suchaktion gelöscht.
 
 \subsubsection{Administrative Benutzeroberfläche}
+In der aktuellen Umsetzung gibt es noch keine Administrative Benutzeroberfläche. Zum Hinzufügen und Löschen von Nutzern steht ein Script zur Verfügung: "/opt/desearch-server/userManagement.py" (vgl. Abbildung \ref{img:userManagement}).\newline
+Das Einlernen von neuen Box wird über das in Kapitel \ref{cap:authentifizierung} erwähnte Script durchgeführt.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/userManagement}
+	\caption[Nutzermanagement auf der Zentrale]{Nutzermanagement auf der Zentrale unter der Verwendung des Scripts "/opt/desearch-server/userManagement.py". Das Passwort wird dabei während der Eingabe nicht angezeigt.}
+	\label{img:userManagement}
+\end{figure}
+
+
 \subsubsection{Installation der DeSearch-Boxen in der Testumgebung}
 Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum Testbetrieb installiert. Dabei fungiert ein Pi als Zentrale und die anderen als DeSearch-Boxen, die die Funde an die Zentrale melden. In Tabelle \ref{tab:pis} ist eine Übersicht über alle installierten Raspberry Pi's aufgelistet.
 Dazu wurde vom Netzwerkadministrator der DHBW die Erlaubnis eingeräumt, die vorhandene Infrastruktur zu verwenden. Daran geknüpft sind allerdings folgende Bedingungen bzw. Einschränkungen:
