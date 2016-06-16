@@ -144,7 +144,7 @@ In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Z
 \\Ein \textbf{Patient} liegt in der Datenbank mit Name, Vorname und weiteren für die Suche wichtigen Informationen vor. Beispielsweise kann unter Merkmale die Beschreibung einer Person vermerkt werden, unter Medikation und Anmerkungen können wichtige Hinweise im Fall eines Fundes oder einer längeren Abwesenheit der Person gespeichert werden. Gerade bei Diabetikern oder Patienten, die regelmäßig Medikamente nehmen müssen, ist diese Information besonders wichtig. Das Flag \enquote{Auf\_Ausgang} kann gesetzt werden, falls ein Angehöriger mit der Person das Pflegeheim verlässt, beispielsweise für einen Spaziergang. Somit wird ein Fehlalarm verhindert.
 \\Die Tabelle \textbf{GefundeneMarken} kann eine Suchaktion protokollieren. Jeder Treffer, den eine Box registriert und an die Zentrale sendet, wird hier dokumentiert. Ein Treffer wird mit der zugehörigen BoxID, der MarkenID, dem Zeitpunkt und der Position in die Datenbank gelegt. Somit können auf der Web-Oberfläche alle Treffer in einer Zeitreihe angezeigt werden. Aus Datenschutzgründen wird diese Tabelle nach jeder abgeschlossenen Suchaktion gelöscht.
 
-\subsection{Benutzeroberfläche}
+\subsubsection{Benutzeroberfläche}\label{sssec:ui}
 Die Benutzeroberfläche wurde unter Verwendung des Frameworks Polymer erstellt. Dieses zeichnet sich vor allem dadurch aus, dass es die Erstellung eines "responsive UI", also einer Nutzerschnittstelle, die sich auf Smartphones, Tabletcomputern, Laptops sowie Desktop PC gleichermaßen bedienen lässt, unterstützt.\newline
 Nachdem sich der Nutzer eingeloggt hat (vgl. Abbildung \ref{img:ui/login}) sieht er eine Liste aller Patienten im System. Patienten, nach denen aktuell gefahndet wird, werden dabei mit einem roten Icon hervorgehoben (vgl. Abbildung \ref{img:ui/personenliste}). Eine Liste, die nur die gesuchten Patienten enthält, lässt sich über das Menü aufrufen (vgl. Abbildung \ref{img:ui/menu}). \newline
 Wählt der Nutzer in einer der Listen einen Patienten aus, so bekommt er weitere Details und verfügbare Aktionen angezeigt. Bei den Details handelt es sich um zuvor hinterlegt Informationen wie das Aussehen und die Anmerkungen sowie die Sichtungen im Falle einer aktiven Fahndung. Verfügbare Aktionen sind das Starten bzw. Stoppen einer Fahndung, das Löschen und Bearbeiten des Patienten und die Verwaltung der Marken starten (vgl. Abbildung \ref{img:ui/persondetails}). \newline
@@ -250,7 +250,7 @@ Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nu
 \end{figure}
 
 
-\subsubsection{Installation einer neuen DeSearch-Box in der Testumgebung}
+\subsubsection{Installation einer neuen DeSearch-Box in der Testumgebung}\label{sssec:schritte}
 Im Folgenden sollen alle Schritte erläutert werden, die für das Einbringen eines neuen Raspberry Pi als DeSearch-Box in das Testsystem durchgeführt werden müssen.
 Voraussetzung dabei ist, dass der Pi bereits das Betriebssystem Raspbian vorinstalliert hat und mit einem WLAN- und Bluetooth-Dongle ausgestattet ist.\\
 \textbf{Schritt 1: Internetverbindung}\\

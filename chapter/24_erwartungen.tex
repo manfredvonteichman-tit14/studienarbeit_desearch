@@ -3,19 +3,19 @@ Die Lösungsergebnisse sollen im Folgenden Kapitel anhand fester Kriterien über
 \subsection{Überprüfung der Erfüllungskriterien}\label{ssec:erfuellung}
 Anhand der Kriterien in Tabelle \ref{tab:kriterien} soll die Problemlösung überprüft werden. Alle Kriterien werden in der Testumgebung an der DHBW Friedrichshafen durchgespielt und anschließend bewertet.
 \begin{table}[h]
-\begin{tabular}{ | p{2,5cm} | p{5cm} | p{5cm} | p{2cm} |}
+\begin{tabular}{ | p{2,5cm} | p{5cm} | p{5cm} | p{2,5cm} |}
 	 \hline
 	 \textbf{Kriterium} & \textbf{Beschreibung} & \textbf{Erwartetes Ergebnis} & \textbf{Erfüllungs-grad} \\ \hline
 	 Vermisster Patient wird erfasst & Ein Patient wurde in der Zentrale als vermisst markiert und die entsprechende Marke befindet sich in Reichweite einer DeSearch-Box & Die Box erkennt die entsprechende Marke und meldet sich bei der Zentrale & tbd \\ \hline
 	 Andere Marken werden ignoriert & Ein Patient wurde in der Zentrale als vermisst markiert und Marken von anderen Patienten befinden sich in Reichweite einer DeSearch-Box & Die Box erkennt, dass die Marken in Reichweite nicht vermisst werden und meldet nichts zurück & tbd \\ \hline
-	 DeSearch-Box wird konfiguriert & Eine neue DeSearch-Box soll konfiguriert bzw. eine bestehende Box soll angepasst werden & Konfigurierte und im System verbundene DeSearch-Box & tbd \\ \hline
-	 DeSearch-Box wird befestigt & Eine DeSearch-Box soll am Einsatzort befestigt werden & Vor Vandalismus und Diebstahl gesicherte, im Netzwerk erreichbare Box mit permanenter Stromversorgung & tbd \\ \hline
-	 temporärer Ausfall DeSearch-Box & Ein unerwarteter Ausfall der Box tritt zeitweise auf & Nach Reboot der Box soll sich diese selbständig wieder im System anmelden und den Scan-Vorgang wieder aufnehmen & tbd \\ \hline
+	 DeSearch-Box wird konfiguriert & Eine neue DeSearch-Box soll konfiguriert bzw. eine bestehende Box soll angepasst werden & Konfigurierte und im System verbundene DeSearch-Box & erfüllt; Siehe Kapitel \ref{sssec:schritte} \\ \hline
+	 DeSearch-Box wird befestigt & Eine DeSearch-Box soll am Einsatzort befestigt werden & Vor Vandalismus und Diebstahl gesicherte, im Netzwerk erreichbare Box mit permanenter Stromversorgung & nicht zutreffend für Prototyp, Anforderung an Produktivsystem \\ \hline
+	 temporärer Ausfall DeSearch-Box & Ein unerwarteter Ausfall der Box tritt zeitweise auf & Nach Reboot der Box soll sich diese selbständig wieder im System anmelden und den Scan-Vorgang wieder aufnehmen & erfüllt durch Services und cronjob, siehe Kapitel \ref{sssec:services}\\ \hline
 	 permanenter Ausfall DeSearch-Box & Ein unerwarteter Ausfall der Box tritt permanent auf, die Box sendet keine alive-Meldungen mehr & Das System muss den Ausfall feststellen, sodass die Box manuell wieder im System reaktiviert werden kann & tbd \\ \hline
-	 DeSearch-Box fordert gesucht-Liste an & Die Box fordert periodisch die aktuelle Liste der gesuchten Marken bei der Zentrale an & Die Zentrale übermittelt der Box die aktuelle Liste der gesuchten Marken & tbd \\ \hline
-	 App fordert gesucht-Liste an & Die Benutzeroberfläche fordert beim Start der Applikation die aktuelle Liste der gesuchten Personen an & Die Zentrale übermittelt der App die aktuelle Liste der gesuchten Personen & tbd \\ \hline
+	 DeSearch-Box fordert gesucht-Liste an & Die Box fordert periodisch die aktuelle Liste der gesuchten Marken bei der Zentrale an & Die Zentrale übermittelt der Box die aktuelle Liste der gesuchten Marken & erfüllt, Anfrage alle 10 Sekunden \\ \hline
+	 App fordert gesucht-Liste an & Die Benutzeroberfläche fordert beim Start der Applikation die aktuelle Liste der gesuchten Personen an & Die Zentrale übermittelt der App die aktuelle Liste der gesuchten Personen & erfüllt, siehe Kapitel \ref{sssec:ui}\\ \hline
 	 Mitarbeiter deaktiviert Marke & Eine gesuchte Marke wurde gefunden, aber die gesuchte Person trägt dieses Kleidungsstück momentan nicht & In der App wird die Marke deaktiviert, die Zentrale entfernt die Marke von der gesucht-Liste & tbd \\ \hline
-	 Person wurde gefunden & Ein Mitarbeiter beendet die Personensuche in der App & Die Zentrale entfernt alle entsprechenden Marken von der gesucht-Liste & tbd \\ \hline
+	 Person wurde gefunden & Ein Mitarbeiter beendet die Personensuche in der App & Die Zentrale entfernt alle entsprechenden Marken von der gesucht-Liste & erfüllt, siehe Kapitel \ref{sssec:ui}\\ \hline
 	 
 	
 \end{tabular}
@@ -24,3 +24,4 @@ Anhand der Kriterien in Tabelle \ref{tab:kriterien} soll die Problemlösung übe
 
 \end{table}
 \subsection{Zuverlässigkeit der Infrastruktur}
+Für die Zuverlässigkeit der Infrastruktur wurden zahlreiche Schritte unternommen, die das System ausfallresisent machen. %TODO aufzählen
