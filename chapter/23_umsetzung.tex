@@ -212,7 +212,7 @@ Das Einlernen von neuen Box wird über das in Kapitel \ref{cap:authentifizierung
 \end{figure}
 
 
-\subsubsection{Installation der DeSearch-Boxen in der Testumgebung}
+\subsubsection{Infrastruktur und Netzwerk-Einschränkungen in der Testumgebung}\label{sssec:tunnel}
 Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum Testbetrieb installiert. Dabei fungiert ein Pi als Zentrale und die anderen als DeSearch-Boxen, die die Funde an die Zentrale melden. In Tabelle \ref{tab:pis} ist eine Übersicht über alle installierten Raspberry Pi's aufgelistet.
 Dazu wurde vom Netzwerkadministrator der DHBW die Erlaubnis eingeräumt, die vorhandene Infrastruktur zu verwenden. Daran geknüpft sind allerdings folgende Bedingungen bzw. Einschränkungen:
 \begin{itemize}
@@ -234,7 +234,9 @@ Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nu
 		3 & Zentrale & Büro Herr Judt & statische IP 141.68.30.39 oder \mbox{Judt-Master.it.ba-ravensburg.de} \\ \hline
 		5 & DeSearch-Box & Haupteingang oberhalb der Treppe & Tunnel über Zentrale, Port 19005 \\ \hline
 		6 & DeSearch-Box & DHBW-Mensa (Kühlschrank) & Tunnel über Zentrale, Port 19006 \\ \hline
-		
+		7 & DeSearch-Box & Container (Raum 603) & Tunnel über Zentrale, Port 19007 \\ \hline
+		9 & DeSearch-Box & Eingangsbereich linker Flügel der DHBW & Tunnel über Zentrale, Port 19009 \\ \hline
+		10 & DeSearch-Box & Eingangsbereich rechter Flügel der DHBW & Tunnel über Zentrale, Port 19010 \\ \hline
 	\end{tabular}
 	\caption{Übersicht der Raspberry Pi's mit Funktion, Installationsort und Erreichbarkeit}
 	\label{tab:pis}
@@ -245,5 +247,61 @@ Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nu
 	\includegraphics[width=\textwidth]{images/tunnel.png}
 	\caption[Schematische Darstellung der Verwendung des SSH Tunnels]{\textbf{Schematische Darstellung der Verwendung des SSH Tunnels} - Beispielhaft ist hier eine Verbindung vom Administrator zur DeSearch-Box 6 dargestellt (roter Pfeil), Quelle: eigene Darstellung}
 	\label{fig:tunnel}
-\end{figure} 
+\end{figure}
+
+
+\subsubsection{Installation einer neuen DeSearch-Box in der Testumgebung}
+Im Folgenden sollen alle Schritte erläutert werden, die für das Einbringen eines neuen Raspberry Pi als DeSearch-Box in das Testsystem durchgeführt werden müssen.
+Voraussetzung dabei ist, dass der Pi bereits das Betriebssystem Raspbian vorinstalliert hat und mit einem WLAN- und Bluetooth-Dongle ausgestattet ist.\\
+\textbf{Schritt 1: Internetverbindung}\\
+Sofern noch nicht geschehen, muss der Raspberry mit dem Internet verbunden werden. Dies kann entweder schon im Testsystem geschehen, oder in der Entwicklungsumgebung in einem anderen Netzwerk. Der Zugriff auf den Raspberry erfolgt bei bereits bestehender Verbindung über SSH, andernfalls wird der Pi über HDMI an einen Monitor angeschlossen und zunächst direkt mit Maus und Tastatur konfiguriert. \\
+\textbf{Schritt 2: Software aktualisieren}\\
+Zunächst sollten einige unnötige Software-Installationen von Raspbian entfernt werden, da diese sonst bei jedem Update große Datenmengen herunterladen und installieren. Beispielsweise ist LibreOffice und WolframEngine vorinstalliert, wird aber auf der DeSearch-Box nicht benötigt. Mit \texttt{apt-get purge libreoffice* wolfram-engine} und \texttt{apt-get autoremove} werden diese deinstalliert und gelöscht. Anschließend wird die Software mittels \texttt{apt-get update} und \texttt{apt-get upgrade} auf den neuesten Stand gebracht. Hierfür muss der Pi eine Internet-Verbindung haben.\\
+\textbf{Schritt 3: Hostname anpassen}\\
+Um die DeSearch-Boxen später im Netz voneinander unterscheiden zu können, muss der Hostname des Gerätes angepasst werden. Hierfür wird der Hostname in der Datei \texttt{/etc/hostname} und in der Datei \texttt{/etc/hosts} von \texttt{raspberrypi} auf z.B. \texttt{pi9} geändert. Damit diese Änderung wirkt, muss der Pi neu gestartet werden.\\
+\textbf{Schritt 4: Statische IP-Adresse konfigurieren}\\
+Falls der Pi im WLAN noch nicht gefunden werden kann, ist die Alternative eine SSH-Verbindung über LAN. Damit diese funktioniert, wird eine statische IP-Adresse auf dem Interface eth0 konfiguriert. Dazu muss ein Eintrag in die Datei \texttt{/etc/network/interfaces} gemacht werden:\\
+\texttt{auto eth0\\
+	allow-hotplug eth0\\
+	iface eth0 inet static\\
+	address 192.42.42.2 // Dies ist die beispielhafte statische IP-Adresse\\
+	netmask 255.255.255.0}\\
+\textbf{Schritt 5: Netzwerkzugriff in der Testumgebung}\\
+Je nach Vorgehensweise kann dieser Schritt auch bereits als erster Schritt erfolgen. Um die Zugangsdaten für das WLAN-Netzwerk der DHBW zu konfigurieren, muss die Datei \texttt{/etc/wpa\_supplicant/wpa\_supplicant.conf} bearbeitet werden. Hier wird der Eintrag (beispielhaft für das DHBW-Netzwerk) folgendermaßen angelegt:\\
+\texttt{network=\{\\
+	\tab ssid="DHBW-STUDENT"\\
+	\tab key\_mgmt=WPA-EAP\\
+	\tab identity="<Nutzername>"\\
+	\tab password="<Passwort>"\\
+	\}}\\
+\textbf{Schritt 6: Tunnel zur Box einrichten}\\
+Für den Zugriff auf die neue DeSearch-Box muss ein SSH-Tunnel von der Zentrale aus hergestellt werden(siehe auch Kapitel \ref{sssec:tunnel}). Hierfür wird im home-Verzeichnis zunächst die Datei \texttt{tunnel.sh} angelegt und mit folgendem Inhalt gefüllt:\\
+\texttt{\#!/bin/bash\\
+	/usr/bin/autossh -i /home/pi/tunnel -fN -R 19005:localhost:22 141.68.30.39}\\
+Zudem wird die Datei \texttt{tunnel} im home-Verzeichnis erstellt, in der der Private Key des tunnel-Users auf der Zentrale abgelegt wird. Das Tunnel-Skript greift dann beim Aufbau des ssh-Tunnels auf diese Datei als Key zu. Nachdem diese beiden Dateien erstellt wurden, müssen die Berechtigungen angepasst werden. Mit \texttt{chmod 755 tunnel.sh} und \texttt{chmod 600 tunnel} wird das Skript ausführbar und nur der Pi-User hat Lesezugriff auf den Private Key. Als nächstes wird das tunnel-Skript in einen Cronjob eingefügt, damit der Tunnel immer selbständig aufgebaut wird, auch nach einem reboot des Systems. Hierfür ruft man \texttt{crontab -e} auf und fügt folgende Zeile ein: \texttt{@reboot /home/pi/tunnel.sh}\\
+Als letzten Schritt sollte überprüft werden, ob das Tool autossh installiert ist. Andernfalls wird es mit \texttt{apt-get install autossh} installiert.\\
+\textbf{Schritt 7: DeSearch-Software installieren}\\
+Nachdem die Verbindung zu der Box und die Infrastruktur gesichert sind, kann nun die DeSearch-Software auf der Box installiert werden. Zunächst wird die Datei\\ \texttt{/etc/apt/sources.list.d/desearch.list} angelegt. In diese Datei fügt man folgende Zeile ein: \texttt{deb https://www.philipp1994.de/apt/ vivid desearch}. Somit wird festgelegt, aus welcher Quelle die desearch-Software bezogen wird. Der angegebene Server ist beispielhaft für das Testsystem und muss für die Produktivnutzung geändert werden. Anschließend wird mit \texttt{apt-get install apt-transport-https} die Installation über HTTPS ermöglicht. Dafür wird der Public Key des Quellservers benötigt, der mit\\ \texttt{wget https://philipp1994.de/philipp1994.de.gpg} heruntergeladen werden kann. \texttt{apt-key add philipp1994.de.gpg} installiert diesen Key, sodass die .gpg-Datei anschließend gelöscht werden kann. Ein Aufrufen von \texttt{apt-get update} lädt nun die verfügbaren Software-Updates für die DeSearch-Software herunter. Installiert wird die Software durch \texttt{apt-get install desearch-client}. Im Installationsprozess muss die Box-Nummer und die Service-URL angegeben werden (siehe Abbildungen \ref{fig:installation1} und \ref{fig:installation2}).
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/installation1}
+	\caption[Eingabe der Box-Nummer bei Installation der DeSearch-Software]{Installationsprozess der DeSearch-Software, hier wird die Box-Nummer eingegeben. Quelle: eigene Darstellung}
+	\label{fig:installation1}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/installation2}
+	\caption[Eingabe der Service-URL bei Installation der DeSearch-Software]{Installationsprozess der DeSearch-Software, hier wird die Service-URL eingegeben. Quelle: eigene Darstellung}
+	\label{fig:installation2}
+\end{figure}  
+Eine erfolgreiche Installation kann mit \texttt{service desearch-client status} überprüft werden. Hier sollte der Status \enquote{active(running)} angezeigt werden (siehe auch Abb. \ref{fig:systemctl-status}).\\
+\textbf{Schritt 8: Bekanntmachen der Box an der Zentrale}\\
+Im letzten Schritt müssen die neue DeSearch-Box und die Zentrale ihre Keys austauschen, um eine sichere Kommunikation zu ermöglichen (vgl. Kapitel \ref{cap:authentifizierung}). Hierfür muss das python-Skript \texttt{/opt/desearch-client/keyExchange.py} ausgeführt werden. Gleichzeitig muss auf der Zentrale das python-Skript \texttt{/opt/desearch-server/keyExchange.py} ausgeführt werden. So werden die Keys auf Server und Client generiert (dies kann auf einem Raspberry Pi einige Zeit dauern) und anschließend muss der User die Hash-Werte der Keys auf Zentrale und Box vergleichen. In Abbildung \ref{fig:keyEx} ist der Key-Exchange auf einer DeSearch-Box zu sehen. 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/keyExchange}
+	\caption[Key-Exchange zwischen DeSearch-Box und Zentrale]{Key-Exchange zwischen DeSearch-Box und Zentrale, hier wird der User aufgefordert, die Hash-Werte zu vergleichen. Quelle: eigene Darstellung}
+	\label{fig:keyEx}
+\end{figure}
+Nach der Bestätigung ist die Box nun im System bekannt und kann sicher mit der Zentrale kommunizieren.
 
