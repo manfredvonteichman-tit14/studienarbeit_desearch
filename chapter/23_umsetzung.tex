@@ -75,7 +75,27 @@ Auch der Raspberry Pi mit Raspbian verwendet systemd. Für die DeSearch-Boxen ei
 
 \subsection{Umsetzung der Anforderungen}
 
-\subsubsection{User-Authentifizierung}
+\subsubsection{Authentifizierung}
+Im System gibt es 4 verschiedene Authentifizierung (vgl. Tabelle \ref{tab:authentifizierungen}).\newline
+Die Zentrale authentifiziert sich bei den Nutzern und Boxen (Authentisierende) mittels SSL Zertifikat, wie jeder Webserver der im Internet über HTTPS zur Verfügung steht. Aktuell handelt es sich dabei um ein selbst signiertes Zertifikat, das auf den Boxen und den Endgeräten der Nutzer manuell eingespielt werden muss. Ist die DeSearch Zentrale zukünftig über eine globale Domain erreichbar, kann auch ein Zertifikat bei einem Root CA beantragt werden, welcher die Browserhersteller vertrauen. \newline
+Die Boxen authentifizieren sich gegenüber der Zentrale ebenfalls mittels eines SSL Zertifikates.
+Dieses muss beim installieren der Box zwischen Zentrale und Box ausgetauscht werden. Dazu wird auf der Box das Python Script "/opt/desearch-client/keyExchange.py" und der Zentrale die Serverversion des Scripts "/opt/desearch-server/keyExchange.py" mit root Berechtigung gestartet. Daraufhin tauschen Server und Klient ihre Zertifikate aus und zeigen deren Hashwerte an. Die Übereinstimmung ist dann zu prüfen um MITM Attacken auszuschließen. Nach bestätigen der Gleichheit werden die Zertifikate abgespeichert. \newline
+Nutzer authentifizieren sich bei der Zentrale mit einer Nutzername / Passwort Kombination. Danach erstellt die Zentrale ein Token, das für alle weiteren Anfragen verwendet wird. Das Token wir selbstverständlich transparent für den Nutzer vom JavaScript Code des Userinterfaces entgegen genommen, verwaltet und mitgesendet.
+
+\begin{table}[h]
+	\begin{tabular}{ | l | l | l | l |}
+		\hline
+		\textbf{Zeile} & \textbf{Authentifizierender} & \textbf{Authentisierender} &  \textbf{Methode} \\ \hline
+		1 & Zentrale & Box      & SSL Klient Zertifikat \\ \hline
+		2 & Zentrale & Nutzer   & Nutzername, Passwort, Token \\ \hline
+		3 & Box      & Zentrale & SSL Server Zertifikat \\ \hline
+		4 & Nutzer   & Zentrale & SSL Server Zertifikat \\ \hline
+		
+	\end{tabular}
+	\caption{Authentifizierungen im System}
+	\label{tab:authentifizierungen}
+\end{table}
+
 \subsubsection{Erkennen der Marken über Bluetooth}
 Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. \newline
 Als Ergebnis eines studentischen Workshops auf der Hütte in Balderschwang gibt es eine Python Klasse, die einen BLE Scan starten kann und basierend auf einer Liste von MAC Adressen eine Callback-Funktion aufruft, wann immer eine der MAC Adressen in der Liste gesichtet wird.
@@ -109,6 +129,7 @@ Nach dem Anlegen des Service-Files wird \texttt{systemctl daemon-relaod} einmali
 	\caption[Status-Ausgabe von Systemctl]{Status-Ausgabe von Systemctl für den deSearch-Zentral-Service.}
 	\label{fig:systemctl-status}
 \end{figure}
+
 \subsubsection{Datenbankschema}
 In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Zentrale arbeitet. 
 \begin{figure}
