@@ -74,9 +74,19 @@ Auch der Raspberry Pi mit Raspbian verwendet systemd. Für die DeSearch-Boxen ei
 Über die Konsole kann \textbf{systemctl} aufgerufen werden. Dies ist die Überwachungs- und Steuereinheit von systemd. Mit \texttt{systemctl start xyz.service} kann ein Service gestartet werden. Respektive kann mit  \texttt{systemctl restart xyz.service} und \texttt{systemctl stop xyz.service} der Service neugestartet oder angehalten werden. Mit  \texttt{systemctl status xyz.service} wird eine Ausgabe erzeugt, die über den Status des Service informiert und eventuelle Ausgaben des Service anzeigt. Diese Kommandos und alle weiteren Optionen von systemctl befinden sich im Manual \citep[][]{systemctl-man}.
 
 \subsection{Umsetzung der Anforderungen}
+Die Umsetzung der prototypischen Implementierung teilt sich in viele Unterthemen auf. Zur Übersicht ist in Abbildung \ref{fig:architektur} die Architektur des DeSearch-Systems mit den einzelnen Komponenten abgebildet.
+\begin{figure}[bth]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/schichten.png}
+	\caption[Architektur des DeSearch-Systems]{Architektur des DeSearch-Systems, Quelle: eigene Darstellung}
+	\label{fig:architektur}
+\end{figure}
+In den grünen Blöcken sind die python-Module dargestellt, aus denen die Software aufgebaut ist. \textbf{Die Zentrale} dient als HTTP-Server sowohl für die Web-Applikation als auch für die Kommunikation mit den DeSearch-Boxen. Die Kommunikation erfolgt abgesichert über HTTPS (siehe auch Kapitel \ref{cap:authentifizierung} Authentifizierung). In \enquote{applicationServer.py} werden alle Anfragen verarbeitet. Dieses Modul wird als Service automatisch auf der Zentrale gestartet und am Laufen gehalten (siehe auch Kapitel \ref{sssec:services}). Die Kommunikation zur Datenbank wird an \enquote{DeSearchDB.py} weitergegeben. Dieses Modul stellt einen Adapter zu der installierten PostgreSQL-Datenbank dar, der die Anfragen in SQL-Anfragen umwandelt und in die Datenbank hineingibt. Nähere Details zum Datenbankschema finden sich in Kapitel \ref{sssec:db}. Das Modul \enquote{Ausfallerkennung.py} ist dafür zuständig, die Lebenszeichen der DeSearch-Boxen zu verarbeiten. Dies dient der Überwachung des Systemstatus.\\
+In den \textbf{DeSearch-Boxen} laufen zwei Python-Skripte in parallelen Threads. \enquote{GesuchteMarkenListe.py} fragt in regelmäßigen Abständen bei der Zentrale an, welche Marken momentan gesucht werden. \enquote{MarkenScanner.py} verarbeitet die Ergebnisse des Bluetooth-Scan, der ständig läuft. Hierfür wird der Bluetooth-Stack \enquote{BlueZ} verwendet (siehe Kapitel \ref{sssec:bluez}). Anschließend werden die Ergebnisse mit den gesuchten Marken verglichen.  Ein Treffer wird an \enquote{GesuchteMarkenListe.py} zurückgegeben. Dieses Modul meldet den Treffer dann mittels POST an die Zentrale weiter. Die Web-Applikation wird auch vom applicationServer aus gespeist, denn auch die HTML-Dokumente liegen auf der Zentrale. Über die Webanwendung können alle administrativen Tätigkeiten wie das Starten und Stoppen einer Suche, das Anlegen und Bearbeiten von Personen, das Hinzufügen von Marken und die Systemüberwachung ausgeführt werden (siehe Kapitel \ref{sssec:ui}). 
+
 
 \subsubsection{Authentifizierung} \label{cap:authentifizierung}
-Im System gibt es 4 verschiedene Authentifizierung (vgl. Tabelle \ref{tab:authentifizierungen}).\newline
+Im System gibt es 4 verschiedene Authentifizierungen (vgl. Tabelle \ref{tab:authentifizierungen}).\newline
 Die Zentrale authentifiziert sich bei den Nutzern und Boxen (Authentisierende) mittels SSL Zertifikat, wie jeder Webserver der im Internet über HTTPS zur Verfügung steht. Aktuell handelt es sich dabei um ein selbst signiertes Zertifikat, das auf den Boxen und den Endgeräten der Nutzer manuell eingespielt werden muss. Ist die DeSearch Zentrale zukünftig über eine globale Domain erreichbar, kann auch ein Zertifikat bei einem Root CA beantragt werden, welcher die Browserhersteller vertrauen. \newline
 Die Boxen authentifizieren sich gegenüber der Zentrale ebenfalls mittels eines SSL Zertifikates.
 Dieses muss beim installieren der Box zwischen Zentrale und Box ausgetauscht werden. Dazu wird auf der Box das Python Script "/opt/desearch-client/keyExchange.py" und der Zentrale die Serverversion des Scripts "/opt/desearch-server/keyExchange.py" mit root Berechtigung gestartet. Daraufhin tauschen Server und Klient ihre Zertifikate aus und zeigen deren Hashwerte an. Die Übereinstimmung ist dann zu prüfen um MITM Attacken auszuschließen. Nach bestätigen der Gleichheit werden die Zertifikate abgespeichert. \newline
@@ -96,7 +106,7 @@ Nutzer authentifizieren sich bei der Zentrale mit einer Nutzername / Passwort Ko
 	\label{tab:authentifizierungen}
 \end{table}
 
-\subsubsection{Erkennen der Marken über Bluetooth}
+\subsubsection{Erkennen der Marken über Bluetooth}\label{sssec:bluez}
 Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. \newline
 Als Ergebnis eines studentischen Workshops auf der Hütte in Balderschwang gibt es eine Python Klasse, die einen BLE Scan starten kann und basierend auf einer Liste von MAC Adressen eine Callback-Funktion aufruft, wann immer eine der MAC Adressen in der Liste gesichtet wird.
 Diese Klasse verwendet die Bibliothek "bleep", die sich allerdings im Laufe der Projektarbeit als nicht geeignet herausstellte, da sie folgende Probleme aufweist:
@@ -130,7 +140,7 @@ Nach dem Anlegen des Service-Files wird \texttt{systemctl daemon-relaod} einmali
 	\label{fig:systemctl-status}
 \end{figure}
 
-\subsubsection{Datenbankschema}
+\subsubsection{Datenbankschema}\label{sssec:db}
 In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Zentrale arbeitet. 
 \begin{figure}
 	\centering
