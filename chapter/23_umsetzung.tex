@@ -160,7 +160,8 @@ Die Benutzeroberfläche wurde unter Verwendung des Frameworks \textbf{Polymer} e
 Nachdem sich der Nutzer eingeloggt hat (vgl. Abbildung \ref{img:ui/login}) sieht er eine Liste aller Patienten im System. Patienten, nach denen aktuell gefahndet wird, werden dabei mit einem roten Icon hervorgehoben (vgl. Abbildung \ref{img:ui/personenliste}). Eine Liste, die nur die gesuchten Patienten enthält, lässt sich über das Menü aufrufen (vgl. Abbildung \ref{img:ui/menu}). \newline
 Wählt der Nutzer in einer der Listen einen Patienten aus, so bekommt er weitere Details und verfügbare Aktionen angezeigt. Bei den Details handelt es sich um zuvor hinterlegten Informationen, wie das Aussehen und die Anmerkungen, sowie die Sichtungen im Falle einer aktiven Fahndung. Verfügbare Aktionen sind das Starten bzw. Stoppen einer Fahndung, das Löschen und Bearbeiten des Patienten und die Verwaltung der Marken (vgl. Abbildung \ref{img:ui/persondetails}). \newline
 Startet der Nutzer die Markenverwaltung, so bekommt er zunächst die für den Patienten hinterlegten Marken aufgelistet und kann diese entfernen oder als gefunden markieren (vgl. Abbildung \ref{img:ui/markenverwalten}). Außerdem hat er die Möglichkeit dem Patienten eine neue Marke zuzuordnen (vgl. Abbildung \ref{img:ui/markehinzufuegen}). \newline
-Neue Patienten werden über einen Button in der Liste hinzugefügt. Dieser öffnet ein Dialogfenster, in dem Details zum Patienten hinterlegt werden können (vgl. Abbildung \ref{img:ui/personhinzufuegen}).
+Neue Patienten werden über einen Button in der Liste hinzugefügt. Dieser öffnet ein Dialogfenster, in dem Details zum Patienten hinterlegt werden können (vgl. Abbildung \ref{img:ui/personhinzufuegen}).\newline
+Der dritte Menüpunkt, der "System Monitor", bietet Informationen zum Status des Systems. Dort kann auf die Logdaten des Servers zugegriffen werden und die Zeit seit dem letzten Lebenszeichen der einzelnen DeSearch-Boxen steht zur Verfügung. In Abbildung \ref{img:ui/systemMonitor} ist der Systemmonitor bei einem simulierten Ausfall des \enquote{pi9} zu sehen. Im unteren Teil des Screenshots ist der Log des Servers zu sehen, dieser enthält in diesem Fall nur geloggte HTTP-Anfragen, dort wären aber auch unbehandelte Exceptions zu sehen.
 
 \begin{figure}
 	\centering
@@ -210,6 +211,15 @@ Neue Patienten werden über einen Button in der Liste hinzugefügt. Dieser öffn
 	\caption{Neue Marken einem Patienten zuordnen}
 	\label{img:ui/markehinzufuegen}
 \end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/ui/systemMonitor}
+	\caption[System Monitor]{System Monitor - Beispiel für Ausfall von \enquote{pi9}}
+	\label{img:ui/systemMonitor}
+\end{figure}
+
 
 \subsubsection{Administrative Benutzeroberfläche}
 In der aktuellen Umsetzung gibt es noch keine Administrative Benutzeroberfläche. Zum Hinzufügen und Löschen von Nutzern steht allerdings ein Skript zur Verfügung, das unter  \texttt{/opt/desearch-server/userManagement.py} ausgeführt werden kann (vgl. Abbildung \ref{img:userManagement}).
