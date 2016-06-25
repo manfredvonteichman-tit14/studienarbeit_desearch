@@ -6,13 +6,12 @@
 \subsubsection{Bluetooth-Technologie}\label{sssec:BLE}
 Bluetooth ist eine drahtlose Datenübertragunsgtechnologie, die basierend auf der Funktechnik Verbindungen zwischen Geräten über eine kurze Distanz ermöglicht. Im engen Nahbereich gilt Bluetooth als der Kommunikationsstandard \citep[Vgl.][S. 133]{mobil-sicher}. Mit dem Bluetooth Low Energy (BLE\nomenclature{BLE}{\textbf{B}luetooth \textbf{L}ow \textbf{E}nergy}) Standard, der 2009 verabscheidet wurde, konnte der Stromverbrauch für eine Bluetooth-Verbindung in den Endgeräten drastisch reduziert werden. Dies gelang unter anderem durch kürzere Verbindungsaufbauzeiten und Schlafphasen (Standby) zwischen den Sendezyklen. Eine vergleichende Untersuchung zum Energieverbrauch von Bluetooth und BLE veröffentlichten \cite{ble-energy}. 
 
-
 \subsubsection{Raspberry Pi}\label{sssec:raspberry}
 Für die Zentrale und die DeSearch-Boxen ist zunächst eine Hardware-Entscheidung notwendig. Benötigt werden Mikrocontroller oder Mikrocomputer mit folgenden Eigenschaften:
 \begin{itemize}
 	\item W-LAN Verbindung von der Box zur Zentrale möglich
 	\item Bluetooth-fähige Box zur Markenerkennung
-	\item Zentrale muss als Server fungieren und HTTP-Requests senden und verarbeiten können
+	\item Zentrale muss als Server fungieren und HTTP-Requests empfangen und verarbeiten können
 	\item Datenbank-Installation zur Datenhaltung notwendig
 \end{itemize}
 Zudem sollen die Kosten pro Gerät so gering wie möglich gehalten werden. \\
@@ -24,31 +23,6 @@ Der Rasberry Pi ist ein Mikrocomputer mit einer Grundfläche, die etwas größer
 	\label{fig:raspi}
 \end{figure}
  Die Anschaffungskosten liegen ohne Zubehör bei etwa 42 €. Für diese geringen Anschaffungskosten erhält man einen vollwertigen, Linux-basierten Computer mit einer ARM-CPU, W-LAN und Bluetooth-Schnittstelle. Im Gegensatz zu Mikrocontrollern ist der Raspberry Pi leistungsfähiger und läuft stabiler \citep[Vgl.][S.35ff.]{raspi}. Auf einem Arduino-Mikrocontroller beispielweise kann nur C++-Code in einer Endlos-Schleife ausgeführt werden. Der Pi hingegen bietet die Möglichkeit, Bash-Skripte, Python-Code, Datenbank-Anfragen und Webserver gleichzeitig auszuführen. Die Entscheidung für den Raspberry Pi ist auch aufgrund der relativ niedrigen Anschaffungskosten für einen kompletten Rechner mit Betriebssystem gefallen. Für die Entwickler ist das Betriebssystem Linux zudem am einfachsten zu bedienen. Für das Projekt werden Pakete mit Raspberry Pi Model 2, SD-Karte, W-LAN und Bluetooth-Dongles, Netzteil und Gehäuse für ca. 75 € pro Paket angeschafft.
-\subsubsection{Software-Rollout mit apt und dpgk}
-Zum Installieren von Software wird unter Debian-basierten Systemen (dazu gehört neben Ubuntu und natürlich Debian selbst auch das Standardbetriebssystem des Raspberry Pi: Rasbian) das Programm \enquote{dpkg} verwendet.
-Zur Installation eines Programms muss eine \enquote{.deb}-Datei vorliegen. Statt dem manuellen Download, der auch bei jedem Update erneut durchgeführt werden müsste, lässt sich zum Verteilen der \enquote{.deb}-Dateien \textbf{apt} verwenden.
-Apt selbst nimmt keine Installation vor, es kümmert sich lediglich um die Beschaffung der aktuellsten \enquote{.deb}-Dateien und deren Abhängigkeiten (ebenfalls im \enquote{.deb} Format) und reicht diese zur Installation an dpkg weiter.
-Neue Programme lassen sich mit \texttt{apt-get install <packetname>} installieren.
-Dazu hält sich apt eine Liste mit allen verfügbaren Programmen in einem lokalen Cache vor. Um diese Liste zu aktualisieren, kann der Befehl \texttt{apt-get update} verwendet werden.
-Dabei werden alle in der Datei \texttt{/etc/sources.list} bzw. dem Ordner \texttt{/etc/sources.list.d/} spezifizierten Quellen abgefragt.
-Die Quellen werden dabei als URL angegeben und können unterschiedlichste Protokolle erfordern,
-beispielsweise HTTP, HTTPS, FTP oder lokale Datenträger.
-Zum Aktualisieren aller installierten Programme (nach dem Ausführen von \texttt{apt-get update}) wird der Befehl \texttt{apt-get upgrade} verwendet. Dabei wird die Softwareliste im Cache mit den installierten Programmen abgeglichen, ist eine aktuellere Version verfügbar wird deren \enquote{deb}-Paket heruntergeladen und mittels dpkg installiert.
-\newline\textbf{apt}\newline
-Zum Aktualisieren der Softwareliste lädt apt zunächst die Release Datei von der Quelle herunter. Diese ist mit gnupg signiert und enthält Informationen über die Paketquelle, wie z.B. die unterstützen CPU-Architekturen.
-Außerdem sind Hash-Summen der Packages-Dateien enthalten, da diese nicht gnupg signiert sind.
-Danach wird die Package-Datei heruntergeladen. Diese Datei ist spezifisch für eine Architektur und kann in einem Repository mehrfach vorkommen.
-Sie enthält die Namen aller verfügbaren Pakete dieses Repositories sowie deren Abhängigkeiten, Beschreibung, Pfad und Hash-Werte der zugehörigen \enquote{.deb}-Datei sowie weitere Metadaten.
-\newline\textbf{dpkg}\newline
-dpkg installiert, konfiguriert und deinstalliert \enquote{deb}-Pakete.
-Eine \enquote{.deb}-Datei enthält in einem Archiv alle Dateien, die das zu installierende Programm zur Ausführung benötigt.
-Außerdem sind in einem weiteren Archiv verschiedene Kontrolldateien enthalten. Eine davon enthält Metadaten wie Namen des Pakets, Abhängigkeiten und der Beschreibung.
-Daneben sind (optional) Skripte enthalten, die ausgeführt werden bevor oder nachdem das Paket installiert, deinstalliert oder aktualisiert wurde. 
-
-\subsubsection{PostgreSQL}
-PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das aus dem Projekt POSTGRES der kalifornischen Universität Berkeley heraus entstanden ist. Der objektrelationale Ansatz bedeutet eine Erweiterung der relationalen DBMS um die Konzepte der Objektorientierung. Somit können in objektrelationalen DBMS beispielsweise komplexe Datenstrukturen mit Attributen definiert werden oder Vererbungen vorgenommen werden \citep[Vgl.][S. 135f.]{datenbanken}. In anderen DBMS muss hierfür \enquote{object relational mapping} (ORM) hinzugezogen werden, um Objektstrukturen auf relationale Tabellen abzubilden \citep[Vgl.][S. 426]{balzert}. Viele Konzepte, die in POSTGRES neu waren, wurden später in kommerzielle DBMS übernommen. PostgreSQL ist die Open-Source-Variante von POSTGRES und unterstützt einen großen Teil des SQL-Standards. Zudem bietet es Features wie komplexe Queries, Fremdschlüsselbeziehungen, Trigger, updatefähige Views und transaktionale Integrität. Außerdem kann der Benutzer PostgreSQL beliebig durch neue Datentypen, Funktionen, Operatoren oder Aggregationsfunktionen erweitern. Aufgrund der Open-Source-Lizenz kann PostgreSQL von jedem verwendet, verbessert oder verteilt werden
-\nomenclature{DBMS}{\textbf{D}aten\textbf{b}ank \textbf{M}anagement \textbf{S}ystem}
-\citep[Vgl.][preface, S. lxvi]{postgres}. Für das DeSearch-Projekt eignet sich PostgreSQL vor allem wegen seiner Open-Source-Lizenz, was die Kosten für das Projekt gering hält. Zudem ist die Möglichkeit, eigene Datentypen definieren zu können, von Vorteil. Da die Datenbank auf dem Zentral-Raspberry verwendet wird, der meist über SSH in der Konsole bedient wird, ist PostgreSQL einfach zu bedienen, da es über einen Konsolenclienten verfügt.
 
 \subsubsection{Services unter Linux mit systemd}\label{sssec:systemd}
 \textbf{systemd} ist ein Init-Tool unter Linux, das als neuere Alternative zu sysvinit und upstart gilt. Es ist für das Starten von Services und das Mounten von Hard Disks beim boot zuständig. Systemd verwaltet Hintergrunddienste (Daemons) und bietet ein Event-gesteuertes Starten von diesen, analog zum Runlevel-Prinzip von sysvinit. Dies bedeutet, dass bestimmte Gruppen von Services an bestimmten Punkten beim Boot gestartet werden, zum Beispiel sobald die GUI verfügbar ist oder sobald eine aktive Netzwerkverbindung besteht. In Tabelle \ref{tab:lvl} ist ein Vergleich zwischen den sysvinit-runlevels und den systemd-targets zu sehen. 
@@ -71,6 +45,32 @@ PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das au
 Mithilfe dieser targets können beispielsweise voneinander abhängige Hintergrundservices nacheinander gestartet werden. Neben den runlevels entsprechenden targets gibt es noch einige weitere, wie zum Beispiel das \textbf{network-online.target}.
 Auch der Raspberry Pi mit Raspbian verwendet systemd. Für die DeSearch-Boxen eignet es sich, um den Scan-Vorgang als Hintergrundprozess zu verwalten und so sicherzugehen, dass dieser stabil läuft und nach eventuellem Reboot oder Verbindungsabbruch selbständig wieder startet.\newline
 Über die Konsole kann \textbf{systemctl} aufgerufen werden. Dies ist die Überwachungs- und Steuereinheit von systemd. Mit \texttt{systemctl start xyz.service} kann ein Service gestartet werden. Respektive kann mit  \texttt{systemctl restart xyz.service} und \texttt{systemctl stop xyz.service} der Service neugestartet oder angehalten werden. Mit  \texttt{systemctl status xyz.service} wird eine Ausgabe erzeugt, die über den Status des Service informiert und eventuelle Ausgaben des Service anzeigt. Diese Kommandos und alle weiteren Optionen von systemctl befinden sich im Manual \citep[][]{systemctl-man}.
+
+\subsubsection{Software-Rollout mit apt und dpgk}
+Zum Installieren von Software wird unter Debian-basierten Systemen (dazu gehört neben Ubuntu und natürlich Debian selbst auch das Standardbetriebssystem des Raspberry Pi: Rasbian) das Programm \enquote{dpkg} verwendet.
+Zur Installation eines Programms muss eine \enquote{.deb}-Datei vorliegen. Statt dem manuellen Download, der auch bei jedem Update erneut durchgeführt werden müsste, lässt sich zum Verteilen der \enquote{.deb}-Dateien \textbf{apt} verwenden.
+Apt selbst nimmt keine Installation vor, es kümmert sich lediglich um die Beschaffung der aktuellsten \enquote{.deb}-Dateien und deren Abhängigkeiten (ebenfalls im \enquote{.deb} Format) und reicht diese zur Installation an dpkg weiter.
+Neue Programme lassen sich mit \texttt{apt-get install <packetname>} installieren.
+Dazu hält sich apt eine Liste mit allen verfügbaren Programmen in einem lokalen Cache vor. Um diese Liste zu aktualisieren, kann der Befehl \texttt{apt-get update} verwendet werden.
+Dabei werden alle in der Datei \texttt{/etc/sources.list} bzw. dem Ordner \texttt{/etc/sources.list.d/} spezifizierten Quellen abgefragt.
+Die Quellen werden dabei als URL angegeben und können unterschiedlichste Protokolle erfordern,
+beispielsweise HTTP, HTTPS, FTP oder lokale Datenträger.
+Zum Aktualisieren aller installierten Programme (nach dem Ausführen von \texttt{apt-get update}) wird der Befehl \texttt{apt-get upgrade} verwendet. Dabei wird die Softwareliste im Cache mit den installierten Programmen abgeglichen, ist eine aktuellere Version verfügbar wird deren \enquote{deb}-Paket heruntergeladen und mittels dpkg installiert.\newpage
+\noindent\textbf{apt}\newline
+Zum Aktualisieren der Softwareliste lädt apt zunächst die Release Datei von der Quelle herunter. Diese ist mit gnupg signiert und enthält Informationen über die Paketquelle, wie z.B. die unterstützen CPU-Architekturen.
+Außerdem sind Hash-Summen der Packages-Dateien enthalten, da diese nicht gnupg signiert sind.
+Danach wird die Package-Datei heruntergeladen. Diese Datei ist spezifisch für eine Architektur und kann in einem Repository mehrfach vorkommen.
+Sie enthält die Namen aller verfügbaren Pakete dieses Repositories sowie deren Abhängigkeiten, Beschreibung, Pfad und Hash-Werte der zugehörigen \enquote{.deb}-Datei sowie weitere Metadaten.
+\newline\textbf{dpkg}\newline
+dpkg installiert, konfiguriert und deinstalliert \enquote{deb}-Pakete.
+Eine \enquote{.deb}-Datei enthält in einem Archiv alle Dateien, die das zu installierende Programm zur Ausführung benötigt.
+Außerdem sind in einem weiteren Archiv verschiedene Kontrolldateien enthalten. Eine davon enthält Metadaten wie Namen des Pakets, Abhängigkeiten und der Beschreibung.
+Daneben sind (optional) Skripte enthalten, die ausgeführt werden bevor oder nachdem das Paket installiert, deinstalliert oder aktualisiert wurde. 
+
+\subsubsection{PostgreSQL}
+PostgreSQL ist ein objektrelationales Datenbank-Management-System (DBMS), das aus dem Projekt POSTGRES der kalifornischen Universität Berkeley heraus entstanden ist. Der objektrelationale Ansatz bedeutet eine Erweiterung der relationalen DBMS um die Konzepte der Objektorientierung. Somit können in objektrelationalen DBMS beispielsweise komplexe Datenstrukturen mit Attributen definiert werden oder Vererbungen vorgenommen werden \citep[Vgl.][S. 135f.]{datenbanken}. In anderen DBMS muss hierfür \enquote{object relational mapping} (ORM) hinzugezogen werden, um Objektstrukturen auf relationale Tabellen abzubilden \citep[Vgl.][S. 426]{balzert}. Viele Konzepte, die in POSTGRES neu waren, wurden später in kommerzielle DBMS übernommen. PostgreSQL ist die Open-Source-Variante von POSTGRES und unterstützt einen großen Teil des SQL-Standards. Zudem bietet es Features wie komplexe Queries, Fremdschlüsselbeziehungen, Trigger, updatefähige Views und transaktionale Integrität. Außerdem kann der Benutzer PostgreSQL beliebig durch neue Datentypen, Funktionen, Operatoren oder Aggregationsfunktionen erweitern. Aufgrund der Open-Source-Lizenz kann PostgreSQL von jedem verwendet, verbessert oder verteilt werden
+\nomenclature{DBMS}{\textbf{D}aten\textbf{b}ank \textbf{M}anagement \textbf{S}ystem}
+\citep[Vgl.][preface, S. lxvi]{postgres}. Für das DeSearch-Projekt eignet sich PostgreSQL vor allem wegen seiner Open-Source-Lizenz, was die Kosten für das Projekt gering hält. Zudem ist die Möglichkeit, eigene Datentypen definieren zu können, von Vorteil. Da die Datenbank auf dem Zentral-Raspberry verwendet wird, der meist über SSH in der Konsole bedient wird, ist PostgreSQL einfach zu bedienen, da es über einen Konsolenclienten verfügt.
 
 \subsection{Umsetzung der Anforderungen}
 Die Umsetzung der prototypischen Implementierung teilt sich in viele Unterthemen auf. Zur Übersicht ist in Abbildung \ref{fig:architektur} die Architektur des DeSearch-Systems mit den einzelnen Komponenten abgebildet.
@@ -105,6 +105,7 @@ Dieses muss beim Installieren der Box zwischen Zentrale und Box ausgetauscht wer
 	\label{tab:authentifizierungen}
 \end{table}
 
+\newpage
 \subsubsection{Erkennen der Marken über Bluetooth}\label{sssec:bluez}
 Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. \newline
 Als Ergebnis eines studentischen Workshops auf der Hütte in Balderschwang gibt es eine Python-Klasse, die einen BLE-Scan starten kann und basierend auf einer Liste von MAC-Adressen eine Callback-Funktion aufruft, wann immer eine der MAC-Adressen in der Liste gesichtet wird.
@@ -118,6 +119,7 @@ Zur Bluetooth-Kommunikation unter Linux kann der im Linux Kernel enthaltene Blue
 Auch die bleep-Bibliothek verwendet BlueZ. Im Rahmen der Projektarbeit erfolgt eine Reimplementierung der Scanner-Klasse in Python, die ohne die Verwendung von bleep auskommt.
 In der Reimplementierung wurden dabei die Schnittstellen der Klasse erhalten, die Kommunikation mit BlueZ findet nun über den DBus statt. Dies erfordert keine root-Rechte und ist neben den Kommandozeilen-Tools der einzig im offiziellen Git-Repository von BlueZ dokumentierte Weg zum Ansprechen der Schnittstellen \citep[Vgl.][]{bluez-git}. Außerdem werden damit nur noch die DBus-Bibliothek von Python und BlueZ auf den DeSearch-Boxen benötigt, diese sind in den offiziellen Paketquellen enthalten und damit einfach zu verteilen und zu aktualisieren.
 
+\newpage
 \subsubsection{Robustheit des Systems durch Services}\label{sssec:services}
 Um eine gewisse Robustheit des Systems zu gewährleisten, muss sichergestellt werden, dass die Python-Skripte zum Scan auf den DeSearch-Boxen sowie die Python-Skripte des Web-Servers auf der Zentrale immer laufen. Dies wird durch Hintergrundservices realisiert. Anforderung an die Services ist es, dass sie sich nach einem Reboot selbständig starten und nach einem unerwarteten Fehler oder Ausführungs-Stop selbständig re-spawnen(d.h. sich selbst neu-starten). Realisiert wurde dies durch systemd-Services, welche in Kapitel \ref{sssec:systemd} bereits erläutert wurden. Die Konfiguration innerhalb des Service ist für Zentrale und DeSearchBox gleich, da die Anforderungen auch gleich sind. Um einen Hintergrundservice anzulegen, muss zunächst das \texttt{.service}-File unter dem Pfad \texttt{/lib/systemd/system/} angelegt werden. In diesem Verzeichnis werden alle Services von systemd nachgeschlagen. Beispielhaft ist in Abbildung \ref{fig:service} das Service-File der DeSearch-Zentrale zu sehen.
 \begin{figure}[bth]
@@ -141,20 +143,21 @@ Nach dem Anlegen des Service-Files wird \texttt{systemctl daemon-relaod} einmali
 
 \subsubsection{Datenbankschema}\label{sssec:db}
 In Abbildung \ref{img:db-schema} ist das Datenbankschema zu sehen, mit dem die Zentrale arbeitet. 
-\begin{figure}
-	\centering
-	\includegraphics[width=1.0\linewidth]{images/db-schema}
-	\caption[Datenbankschema der Zentrale]{Datenbankschema der Zentrale, Quelle: eigene Darstellung}
-	\label{img:db-schema}
-\end{figure}
 \begin{itemize}
 \item Für den Zugang zur Web-Oberfläche werden \textbf{Benutzer} mit ihren Rollen in der Datenbank angelegt. Das Passwort wird dabei als Hash mit 128 Zeichen in der Datenbank gespeichert. 
 \item Jede \textbf{DeSearch-Box} wird in der Datenbank mit ihrer Position und Boxnummer angelegt. Für die Zukunft wurde bereits das Feld \enquote{Boxtyp} erstellt, da im weiteren Verlauf ortsfeste, mobile und Alarm-Boxen unterschieden werden sollen. Bei mobilen Boxen (z.B. im Auto, in Linienbussen) wird anstatt einer festen Positionsbeschreibung die genaue Geo-Location mit Longitude und Latitude ermittelt. Alarm-Boxen können beispielsweise am Hof-Ausgang oder an der Bushaltestelle installiert werden und standardmäßig immer Alarm auslösen, wenn dort eine Marke gefunden wird.
 \item Die \textbf{Marken} werden in der Datenbank mit einer eindeutigen MAC-Adresse abgelegt, die beim Abgleich mit den Scan-Ergebnissen verwendet wird. Außerdem wird die ID des zugehörigen Patienten vermerkt und ein Hinweis auf das jeweilige Kleidungsstück, in das die Marke eingenäht ist. Zusätzlich wird ein Ablaufdatum in die Datenbank eingetragen, das den ungefähren Zeitpunkt des nächsten Batteriewechsels festhält. Somit kann eine Warnmeldung angezeigt werden, wenn der Batteriewechsel fällig ist. Ein wichtiges Feld ist der boolean \enquote{wird\_gesucht}. Wird auf der Web-Oberfläche eine Suche gestartet, so werden alle zu dieser Person gehörigen Marken auf wird\_gesucht gesetzt. Nur dann werden Treffer zu dieser Person von den Boxen an die Zentrale gemeldet. Finden die Suchenden beispielsweise nur ein Kleidungsstück der vermissten Person, können einzelne Marken gezielt von der Suche ausgeschlossen werden. 
 \item Ein \textbf{Patient} liegt in der Datenbank mit Name, Vorname und weiteren für die Suche wichtigen Informationen vor. Beispielsweise kann unter \enquote{Merkmale} die Beschreibung einer Person vermerkt werden, unter \enquote{Medikation} und \enquote{Anmerkungen} können wichtige Hinweise im Fall eines Fundes oder einer längeren Abwesenheit der Person gespeichert werden. Gerade bei Diabetikern oder Patienten, die regelmäßig Medikamente nehmen müssen, ist diese Information besonders wichtig. Das Flag \enquote{Auf\_Ausgang} kann gesetzt werden, falls ein Angehöriger mit der Person das Pflegeheim verlässt, beispielsweise für einen Spaziergang. Somit wird ein Fehlalarm verhindert.
 \item Die Tabelle \textbf{GefundeneMarken} kann eine Suchaktion protokollieren. Jeder Treffer, den eine Box registriert und an die Zentrale sendet, wird hier dokumentiert. Ein Treffer wird mit der zugehörigen BoxID, der MarkenID, dem Zeitpunkt und der Position in die Datenbank gelegt. Somit können auf der Web-Oberfläche alle Treffer in einer Zeitreihe angezeigt werden. Aus Datenschutzgründen werden die Einträge in dieser Tabelle nach jeder abgeschlossenen Suchaktion gelöscht.
-
 \end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{images/db-schema}
+	\caption[Datenbankschema der Zentrale]{Datenbankschema der Zentrale, Quelle: eigene Darstellung}
+	\label{img:db-schema}
+\end{figure}
+
+\newpage
 \subsubsection{Benutzeroberfläche}\label{sssec:ui}
 Die Benutzeroberfläche wurde unter Verwendung des Frameworks \textbf{Polymer} erstellt. Dieses zeichnet sich vor allem dadurch aus, dass es die Erstellung eines \enquote{responsive UI}, also einer Nutzerschnittstelle, die sich auf Smartphones, Tabletcomputern, Laptops sowie Desktop PC gleichermaßen bedienen lässt, unterstützt.\newline
 Nachdem sich der Nutzer eingeloggt hat (vgl. Abbildung \ref{img:ui/login}) sieht er eine Liste aller Patienten im System. Patienten, nach denen aktuell gefahndet wird, werden dabei mit einem roten Icon hervorgehoben (vgl. Abbildung \ref{img:ui/personenliste}). Eine Liste, die nur die gesuchten Patienten enthält, lässt sich über das Menü aufrufen (vgl. Abbildung \ref{img:ui/menu}). \newline
@@ -163,49 +166,49 @@ Startet der Nutzer die Markenverwaltung, so bekommt er zunächst die für den Pa
 Neue Patienten werden über einen Button in der Liste hinzugefügt. Dieser öffnet ein Dialogfenster, in dem Details zum Patienten hinterlegt werden können (vgl. Abbildung \ref{img:ui/personhinzufuegen}).\newline
 Der dritte Menüpunkt, der "System Monitor", bietet Informationen zum Status des Systems. Dort kann auf die Logdaten des Servers zugegriffen werden und die Zeit seit dem letzten Lebenszeichen der einzelnen DeSearch-Boxen steht zur Verfügung. In Abbildung \ref{img:ui/systemMonitor} ist der Systemmonitor bei einem simulierten Ausfall des \enquote{pi9} zu sehen. Im unteren Teil des Screenshots ist der Log des Servers zu sehen, dieser enthält in diesem Fall nur geloggte HTTP-Anfragen, dort wären aber auch unbehandelte Exceptions zu sehen.
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/login}
 	\caption[Benutzeroberfläche: Login]{Login}
 	\label{img:ui/login}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/personenliste}
 	\caption[Benutzeroberfläche: Liste aller Patienten]{Liste aller Patienten}
 	\label{img:ui/personenliste}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/menu}
 	\caption[Benutzeroberfläche: Menü]{Menü}
 	\label{img:ui/menu}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/personhinzufuegen}
 	\caption[Benutzeroberfläche: Patient anlegen]{Patient anlegen}
 	\label{img:ui/personhinzufuegen}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/persondetails}
 	\caption[Benutzeroberfläche: Details zu einem Patienten anzeigen]{Details zu einem Patienten anzeigen}
 	\label{img:ui/persondetails}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/markenverwalten}
 	\caption[Benutzeroberfläche: Marken eines Patienten verwalten]{Marken eines Patienten verwalten}
 	\label{img:ui/markenverwalten}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/markehinzufuegen}
 	\caption[Benutzeroberfläche: Neue Marken einem Patienten zuordnen]{Neue Marken einem Patienten zuordnen}
@@ -213,7 +216,7 @@ Der dritte Menüpunkt, der "System Monitor", bietet Informationen zum Status des
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[p]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/ui/systemMonitor}
 	\caption[Benutzeroberfläche: System Monitor]{System Monitor - Beispiel für Ausfall von \enquote{pi9}}
@@ -232,7 +235,7 @@ Das Einlernen einer neuen Box wird über das in Kapitel \ref{cap:authentifizieru
 	\label{img:userManagement}
 \end{figure}
 
-
+\newpage
 \subsubsection{Infrastruktur und Netzwerk-Einschränkungen in der Testumgebung}\label{sssec:tunnel}
 Die Raspberry Pi's werden in der DHBW Ravensburg am Campus Friedrichshafen zum Testbetrieb installiert. Dabei fungiert ein Pi als Zentrale und die anderen als DeSearch-Boxen, die die Funde an die Zentrale melden. In Tabelle \ref{tab:pis} ist eine Übersicht über alle installierten Raspberry Pi's aufgelistet.
 Dazu wurde vom Netzwerkadministrator der DHBW die Erlaubnis eingeräumt, die vorhandene Infrastruktur zu verwenden. Daran geknüpft sind allerdings folgende Bedingungen bzw. Einschränkungen:
@@ -245,7 +248,7 @@ Dazu wurde vom Netzwerkadministrator der DHBW die Erlaubnis eingeräumt, die vor
 Die letzte Bedingung stellt eine Herausforderung dar, da damit auch kein SSH-Zugriff auf die DeSearch-Boxen möglich ist, der benötigt wird um die DeSearch Anwendung zu aktualisieren, starten oder überwachen.
 Dieses Problem kann gelöst werden, da mit der Zentrale ein Gerät im Netzwerk ist, das für alle anderen Pi's und auch die zur Entwicklung und Wartung verwendeten Laptops erreichbar ist. Somit kann über die Zentrale ein Tunnel aufgebaut werden.
 Zum Aufbauen des Tunnels bietet sich die Verwendung der SSH Portforwarding Funktion an, da alle beteiligten Geräte bereits für die Verwendung von SSH eingerichtet sind. Eine schematische Darstellung der Vorgehensweise ist in Abbildung \ref{fig:tunnel} zu sehen.
-Zum Verbindungsaufbau wurde ein technischer Benutzer mit dem Namen "tunnel" auf der Zentrale angelegt, der sich über SSH und Zertifikat Authentifizierung einloggen kann.
+Zum Verbindungsaufbau wurde ein technischer Benutzer mit dem Namen \enquote{tunnel} auf der Zentrale angelegt, der sich über SSH und Zertifikat Authentifizierung einloggen kann.
 Jeder Slave erhält einen RSA Schlüssel, den er zum Login verwenden kann, und über einen Eintrag in der Crontabelle wird sichergestellt, dass der Tunnel immer offen gehalten wird.
 Der Ausgangsport des Tunnels ist dabei für jede DeSearch-Box eindeutig. Soll nun eine Verbindung zu einer Box hergestellt werden, so muss erst eine SSH Verbindung zur Zentrale aufgebaut werden und dort eine SSH Verbindung zum Eingang des Tunnels (localhost plus Tunnel Ausgangport) hergestellt werden.
 \begin{table}[h]
