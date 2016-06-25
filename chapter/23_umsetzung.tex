@@ -109,13 +109,13 @@ Dieses muss beim Installieren der Box zwischen Zentrale und Box ausgetauscht wer
 \subsubsection{Erkennen der Marken über Bluetooth}\label{sssec:bluez}
 Durch die eingschränkte Sendereichweite von Bluetooth soll die Ortung im DeSearch-Projekt gelingen. Die dementen Patienten tragen kleine BLE-Sendemarken am Körper, die von den fest installierten DeSearch-Boxen erkannt werden, sobald sich der Patient in der Nähe aufhält. So kann auf den ungefähren Aufenthaltsort der Person geschlossen werden, sobald eine der Boxen einen Treffer an die Zentrale meldet. \newline
 Als Ergebnis eines studentischen Workshops auf der Hütte in Balderschwang gibt es eine Python-Klasse, die einen BLE-Scan starten kann und basierend auf einer Liste von MAC-Adressen eine Callback-Funktion aufruft, wann immer eine der MAC-Adressen in der Liste gesichtet wird.
-Diese Klasse verwendet die Bibliothek "bleep", die sich allerdings im Laufe der Projektarbeit als nicht geeignet herausstellte, da sie folgende Probleme aufweist:
+Diese Klasse verwendet die Bibliothek \enquote{bleep}, die sich allerdings im Laufe der Projektarbeit als nicht geeignet herausstellte, da sie folgende Probleme aufweist:
 \begin{itemize}
 	\item Wird sie nicht mit root-Rechten ausgeführt, kommt es zum Absturz.
-	\item Die Installation ist für eine großflächige Verteilung zu aufwändig und erfordert unter anderem die Installation einer modifizierten Version von "pygattlib" \citep[Vgl.][]{bleep-installation}.
+	\item Die Installation ist für eine großflächige Verteilung zu aufwändig und erfordert unter anderem die Installation einer modifizierten Version von \enquote{pygattlib} \citep[Vgl.][]{bleep-installation}.
 	\item Es handelt sich dabei um ein Ein-Mann-Projekt, dessen Entwickler die Bibliothek aus einem privaten Bedürfnis heraus geschaffen hat. Damit ist die Softwarequalität und Wartung abhängig von einer einzelnen Person.
 \end{itemize}
-Zur Bluetooth-Kommunikation unter Linux kann der im Linux Kernel enthaltene Bluetooth Stack "BlueZ" verwendet werden. Dieser enthält auch Treiber für die meisten Bluetooth Chipsets.
+Zur Bluetooth-Kommunikation unter Linux kann der im Linux Kernel enthaltene Bluetooth Stack \enquote{BlueZ} verwendet werden. Dieser enthält auch Treiber für die meisten Bluetooth Chipsets.
 Auch die bleep-Bibliothek verwendet BlueZ. Im Rahmen der Projektarbeit erfolgt eine Reimplementierung der Scanner-Klasse in Python, die ohne die Verwendung von bleep auskommt.
 In der Reimplementierung wurden dabei die Schnittstellen der Klasse erhalten, die Kommunikation mit BlueZ findet nun über den DBus statt. Dies erfordert keine root-Rechte und ist neben den Kommandozeilen-Tools der einzig im offiziellen Git-Repository von BlueZ dokumentierte Weg zum Ansprechen der Schnittstellen \citep[Vgl.][]{bluez-git}. Außerdem werden damit nur noch die DBus-Bibliothek von Python und BlueZ auf den DeSearch-Boxen benötigt, diese sind in den offiziellen Paketquellen enthalten und damit einfach zu verteilen und zu aktualisieren.
 
@@ -164,7 +164,7 @@ Nachdem sich der Nutzer eingeloggt hat (vgl. Abbildung \ref{img:ui/login}) sieht
 Wählt der Nutzer in einer der Listen einen Patienten aus, so bekommt er weitere Details und verfügbare Aktionen angezeigt. Bei den Details handelt es sich um zuvor hinterlegten Informationen, wie das Aussehen und die Anmerkungen, sowie die Sichtungen im Falle einer aktiven Fahndung. Verfügbare Aktionen sind das Starten bzw. Stoppen einer Fahndung, das Löschen und Bearbeiten des Patienten und die Verwaltung der Marken (vgl. Abbildung \ref{img:ui/persondetails}). \newline
 Startet der Nutzer die Markenverwaltung, so bekommt er zunächst die für den Patienten hinterlegten Marken aufgelistet und kann diese entfernen oder als gefunden markieren (vgl. Abbildung \ref{img:ui/markenverwalten}). Außerdem hat er die Möglichkeit dem Patienten eine neue Marke zuzuordnen (vgl. Abbildung \ref{img:ui/markehinzufuegen}). \newline
 Neue Patienten werden über einen Button in der Liste hinzugefügt. Dieser öffnet ein Dialogfenster, in dem Details zum Patienten hinterlegt werden können (vgl. Abbildung \ref{img:ui/personhinzufuegen}).\newline
-Der dritte Menüpunkt, der "System Monitor", bietet Informationen zum Status des Systems. Dort kann auf die Logdaten des Servers zugegriffen werden und die Zeit seit dem letzten Lebenszeichen der einzelnen DeSearch-Boxen steht zur Verfügung. In Abbildung \ref{img:ui/systemMonitor} ist der Systemmonitor bei einem simulierten Ausfall des \enquote{pi9} zu sehen. Im unteren Teil des Screenshots ist der Log des Servers zu sehen, dieser enthält in diesem Fall nur geloggte HTTP-Anfragen, dort wären aber auch unbehandelte Exceptions zu sehen.
+Der dritte Menüpunkt, der \enquote{System Monitor}, bietet Informationen zum Status des Systems. Dort kann auf die Logdaten des Servers zugegriffen werden und die Zeit seit dem letzten Lebenszeichen der einzelnen DeSearch-Boxen steht zur Verfügung. In Abbildung \ref{img:ui/systemMonitor} ist der Systemmonitor bei einem simulierten Ausfall des \enquote{pi9} zu sehen. Im unteren Teil des Screenshots ist der Log des Servers zu sehen, dieser enthält in diesem Fall nur geloggte HTTP-Anfragen, dort wären aber auch unbehandelte Exceptions zu sehen.
 
 \begin{figure}[p]
 	\centering
@@ -231,7 +231,7 @@ Das Einlernen einer neuen Box wird über das in Kapitel \ref{cap:authentifizieru
 \begin{figure}
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/userManagement}
-	\caption[Nutzermanagement auf der Zentrale]{Nutzermanagement auf der Zentrale unter der Verwendung des Scripts "/opt/desearch-server/userManagement.py". Das Passwort wird dabei während der Eingabe nicht angezeigt.}
+	\caption[Nutzermanagement auf der Zentrale]{Nutzermanagement auf der Zentrale unter der Verwendung des Scripts \enquote{/opt/desearch-server/userManagement.py}. Das Passwort wird dabei während der Eingabe nicht angezeigt.}
 	\label{img:userManagement}
 \end{figure}
 
